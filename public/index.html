@@ -1,0 +1,126 @@
+<!--
+/*
+ * Copyright 2014 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+Author: Michael E. Weigel
+-->
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gun List App</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="style/GunFactsCatalog.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+        <script src="controllers/gunFactsController.js"></script>
+    </head>
+    <body>
+        <noscript>
+        <h2 style="color: #ff0000">Seems your browser doesn't support
+            Javascript! Websocket relies on Javascript being enabled. Please
+            enable Javascript and reload this page!</h2>
+        </noscript>
+        <div id="main-content" >
+            <h1>19th Century Gun Facts Catalog</h1>
+            <div ng-app="gunListApp" ng-controller="gunFactsController">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th id="modelName">Model Name</th>
+                            <th id="country">Country</th>
+                            <th id="caliber">Caliber (inches)</th>
+                            <th id="actionType">Action Type</th>
+                            <th id="propellant">Ammunition</th>
+                            <th id="velocity">Velocity (fps)</th>
+                            <th id="rof">Rate of Fire (per min)</th>
+                            <th id="range">Effective Range (yards)</th>
+                            <th id="startService">Start Service (year)</th>
+                            <th id="endService">End Service (year)</th>
+                            <th id="manufacturer">Manufacturer</th>
+                            <th id="numproduced">Number Produced</th>
+                            <th id="description">Description</th>
+                            <th>Action</th>
+                            <th>Modify Entry</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="modelName">
+                                <input class="form-control" type="text" ng-model="gun.modelName" ng-change="onChange(gun.modelName)" required>
+                            </td>
+                            <td id="country">
+                                <input class="form-control" type="text" ng-model="gun.country" ng-change="onChange(gun.country)" required>
+                            </td>
+                            <td id="caliber">
+                                <input class="form-control" type="text" ng-model="gun.caliber" ng-change="onChange(gun.caliber)" required>
+                            </td>
+                            <td id="actionType">
+                                <input class="form-control" type="text" ng-model="gun.actionType" ng-change="onChange(gun.actionType)" required>
+                            </td>
+                            <td id="propellant">
+                                <input class="form-control" type="text" ng-model="gun.propellant" ng-change="onChange(gun.propellant)" required>
+                            </td>
+                            <td id="velocity">
+                                <input class="form-control" type="number" ng-model="gun.velocity" ng-change="onChange(gun.velocity)" required>
+                            </td>
+                            <td id="rof">
+                                <input class="form-control" type="number" ng-model="gun.rateOfFire" ng-change="onChange(gun.rateOfFire)" required>
+                            </td>
+                            <td id="range">
+                                <input class="form-control" type="number" ng-model="gun.range" ng-change="onChange(gun.range)" required>
+                            </td>
+                            <td id="startService">
+                                <input class="form-control" type="text"  ng-model="gun.startService" ng-change="onChange(gun.startService)" required>
+                            </td>
+                            <td id="endService">
+                                <input class="form-control" type="text"  ng-model="gun.endService" ng-change="onChange(gun.endService)" required>
+                            </td>
+                            <td id="manufacturer">
+                                <input class="form-control" type="text" ng-model="gun.manufacturer" ng-change="onChange(gun.manufacturer)" required>
+                            </td>
+                            <td id="numproduced">
+                                <input class="form-control" type="number" ng-model="gun.numProduced" ng-change="onChange(gun.numProduced)" required>
+                            </td>
+                            <td id="description">
+                                <input class="form-control" type="text" ng-model="gun.description" ng-change="onChange(gun.description)" required>
+                            </td>
+                            <td><button class="btn btn-primary" ng-click="addGun()">Add Gun</button></td>
+                            <td><button class="btn btn-info" ng-click="update()">Update</button>&nbsp;<button class="btn btn-info" ng-click="deselect()">Clear</button></td>
+                        </tr>
+                        <tr ng-repeat="gun in gunList">
+                            <td id="modelName">{{gun.modelName}}</td>
+                            <td id="country">{{gun.country}}</td>
+                            <td id="caliber">{{gun.caliber}}</td>
+                            <td id="actionType">{{gun.actionType}}</td>
+                            <td id="propellant">{{gun.propellant}}</td>
+                            <td id="velocity">{{gun.velocity}}</td>
+                            <td id="rof">{{gun.rateOfFire}}</td>
+                            <td id="range">{{gun.range}}</td>
+                            <td id="startService">{{gun.startService}}</td>
+                            <td id="endService">{{gun.endService}}</td>
+                            <td id="manufacturer">{{gun.manufacturer}}</td>
+                            <td id="numproduced">{{gun.numProduced}}</td>
+                            <td id="description">{{gun.description}}</td> 
+                            <td><button class="btn btn-danger" ng-click="remove(gun._id)">Remove</button></td>
+                            <td><button class="btn btn-warning" ng-click="edit(gun._id)">Edit</button></td>
+                        </tr>
+                    </tbody>
+                </table>	 
+            </div>
+        </div>
+    </body>
+</html>
