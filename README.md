@@ -19,6 +19,7 @@ Install required software packages
 > Make sure that you add the bin directory paths for NodeJS and MongoDB to your shell $PATH environment variable.
 
 
+
 Install the required Nodejs modules using npm
 ---------------------------------------------
 
@@ -31,6 +32,7 @@ Change directory to where you cloned or unzipped the GunFactsCatalog19thCentury 
 * run: npm install body-parser
 
 
+
 Start Mongodb
 -------------
 
@@ -39,6 +41,8 @@ Open another terminal window
 cd mongodb-linux-x86_64-rhel70-3.4.1
 
 run: bin/mongod
+
+
 
 Start Mongo client
 ------------------
@@ -49,12 +53,27 @@ cd mongodb-linux-x86_64-rhel70-3.4.1
 
 run: bin/mongo
 
+
+
+Load in the 19th Century Gun Documents
+--------------------------------------
+
+Open another terminal window
+
+cd mongodb-linux-x86_64-rhel70-3.4.1
+
+run: bin/mongoimport -d gunList -c gunList --file /installDir/GunFactsCatalog19thCentury/public/data/gunList.json
+
+
+
 Start NodeJS
 ------------
 
 Go to the terminal window of the GunFactsCatalog19thCentury project.
 
-run: node catalogServer
+run: node GunFactsServer
+
+
 
 Open a Web Browser (i.e Google Chrome or Firefox)
 -------------------------------------------------
@@ -65,12 +84,14 @@ The GunFactsCatalog19thCentury web application should start.
 
 Use of the Web Application is self intuitive.
 
+
+
 TODO
 -----
 
 1. Add ability to click on column header and sort data.
 
-2. Keep the data input row to not scroll just as the table header
+2. Make the data input row to not scroll just as the table header
    does not scroll.
 
 
