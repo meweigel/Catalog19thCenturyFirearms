@@ -41,13 +41,20 @@ input.ng-invalid {
     background-color: rgb(230, 242, 255);
 }
 
+button{
+    padding: 1px;
+    margin: 1px; 
+}
+
 table thead tr {
     display: block; 
-    border: 1px solid #999;
+    border-style: solid;
+    border-width: 2px 2px 0px 2px;
+    border-color: black;
     width: 1974px;
 }
 
-th, td {
+table th, table td {
     padding: 1px;
     margin:  1px; 
     width: 160px;
@@ -56,10 +63,37 @@ th, td {
     text-align: center;
 }
 
-table th{
+thead th{
     background-color: rgb(255, 204, 153);
 }
 
+tr#input > th{
+    border-style: solid;
+    border-width: 0px 1px 1px 1px;
+    border-color: black;
+    background-color: lightgray;
+}
+
+table tbody {
+    display: block;
+    height: 800px;
+    min-height: 800px;
+    max-height: 800px;
+    width: 1974px;
+    overflow: auto;
+}
+
+table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+table tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/*
+   Very Specific widths
+*/
 th#country{
     width: 140px;
     min-width: 140px;
@@ -204,24 +238,3 @@ td#description{
     max-width: 230px;
 }
 
-table tr:nth-child(odd) {
-    background-color: #f1f1f1;
-}
-
-table tr:nth-child(even) {
-    background-color: #ffffff;
-}
-
-table tbody {
-    display: block;
-    height: 800px;
-    min-height: 800px;
-    max-height: 800px;
-    width: 1974px;
-    overflow: auto;
-}
-
-button{
-    padding: 1px;
-    margin: 1px; 
-}

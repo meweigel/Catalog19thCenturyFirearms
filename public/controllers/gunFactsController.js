@@ -122,9 +122,9 @@ app.controller('gunFactsController', function ($scope, $http) {
         var index = $scope.gunList.map(function (x) {
             return x._id;
         }).indexOf($scope.gun._id);
-        
+
         console.log("index = " + index);
-        
+
         // Only add gun if it doesn't already exist
         if (index === -1) {
             var dataField = doGunFieldsHaveData();
@@ -135,50 +135,20 @@ app.controller('gunFactsController', function ($scope, $http) {
                     dataField.endService && dataField.manufacturer && dataField.numProduced &&
                     dataField.description) {
                 if (isYearValid($scope.gun.startService)) {
-                    if (isYearValid($scope.gun.endService)) {
-                        console.log($scope.gun);
-                        $http.post('/gunList', $scope.gun).then(function (response) {
-                            console.log(response.data);
-                            refresh();
-                        });
-                        resetChangeFlags();
-                    } else {
-                        alert("19 Century Format: 18XX");
-                    }
+                    console.log($scope.gun);
+                    $http.post('/gunList', $scope.gun).then(function (response) {
+                        console.log(response.data);
+                        refresh();
+                    });
                 } else {
                     alert("19 Century Format: 18XX");
                 }
             } else {
-                if (!dataField.modelName) {
-                    alert("Please enter the model name.");
-                } else if (!dataField.country) {
-                    alert("Please enter the country.");
-                } else if (!dataField.caliber) {
-                    alert("Please enter the caliber.");
-                } else if (!dataField.actionType) {
-                    alert("Please enter the action type.");
-                } else if (!dataField.propellant) {
-                    alert("Please enter the ammunition.");
-                } else if (!dataField.velocity) {
-                    alert("Please enter the velocity.");
-                } else if (!dataField.rateOfFire) {
-                    alert("Please enter the rate of fire.");
-                } else if (!dataField.range) {
-                    alert("Please enter the range.");
-                } else if (!dataField.startService) {
-                    alert("Please enter the start service date.");
-                } else if (!dataField.endService) {
-                    alert("Please enter the end service date.");
-                } else if (!dataField.manufacturer) {
-                    alert("Please enter the manufacturer.");
-                } else if (!dataField.numProduced) {
-                    alert("Please enter the number manufactured.");
-                } else if (!dataField.description) {
-                    alert("Please enter the description.");
-                }
+                showEmptyFieldAlert(dataField);
             }
         }
     };
+
 
     $scope.remove = function (id) {
         console.log(id);
@@ -194,7 +164,7 @@ app.controller('gunFactsController', function ($scope, $http) {
         });
     };
 
-    $scope.update = function () {
+    $scope.update = function (id) {
         if (chngFlags.modelName || chngFlags.country || chngFlags.caliber ||
                 chngFlags.actionType || chngFlags.propellant || chngFlags.velocity ||
                 chngFlags.rateOfFire || chngFlags.range || chngFlags.startService ||
@@ -202,15 +172,11 @@ app.controller('gunFactsController', function ($scope, $http) {
                 chngFlags.description) {
 
             if (isYearValid($scope.gun.startService)) {
-                if (isYearValid($scope.gun.endService)) {
-                    console.log($scope.gun._id);
-                    $http.put('/gunList/' + $scope.gun._id, $scope.gun).then(function (repsonse) {
-                        refreshGun(repsonse.data._id);
-                    });
+                console.log($scope.gun._id);
+                $http.put('/gunList/' + id, $scope.gun).then(function (repsonse) {
+                    refreshGun(repsonse.data._id);
                     resetChangeFlags();
-                } else {
-                    alert("19 Century Year Format: 18XX");
-                }
+                });
             } else {
                 alert("19 Century Year Format: 18XX");
             }
@@ -254,7 +220,7 @@ app.controller('gunFactsController', function ($scope, $http) {
         };
         return dataField;
     }
-    ;
+
 
     function resetChangeFlags() {
         chngFlags.modelName = false;
@@ -271,11 +237,41 @@ app.controller('gunFactsController', function ($scope, $http) {
         chngFlags.numProduced = false;
         chngFlags.description = false;
     }
-    ;
+
 
     function isYearValid(year) {
         var regex_date = /^[1][8][0-9][0-9]$/;
         return regex_date.test(year);
     }
-    ;
+
+
+    function showEmptyFieldAlert(dataField) {
+        if (!dataField.modelName) {
+            alert("Please enter the model name.");
+        } else if (!dataField.country) {
+            alert("Please enter the country.");
+        } else if (!dataField.caliber) {
+            alert("Please enter the caliber.");
+        } else if (!dataField.actionType) {
+            alert("Please enter the action type.");
+        } else if (!dataField.propellant) {
+            alert("Please enter the ammunition.");
+        } else if (!dataField.velocity) {
+            alert("Please enter the velocity.");
+        } else if (!dataField.rateOfFire) {
+            alert("Please enter the rate of fire.");
+        } else if (!dataField.range) {
+            alert("Please enter the range.");
+        } else if (!dataField.startService) {
+            alert("Please enter the start service date.");
+        } else if (!dataField.endService) {
+            alert("Please enter the end service date.");
+        } else if (!dataField.manufacturer) {
+            alert("Please enter the manufacturer.");
+        } else if (!dataField.numProduced) {
+            alert("Please enter the number manufactured.");
+        } else if (!dataField.description) {
+            alert("Please enter the description.");
+        }
+    }
 });

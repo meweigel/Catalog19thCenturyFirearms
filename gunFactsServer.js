@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/* global __dirname */
+
 /**
  * 
  * Author: Michael E. Weigel
@@ -29,6 +32,10 @@ var bodyParser = require('body-parser');
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
+
+/**
+ * Get All guns
+ */
 app.get('/gunList', function (req, res) {
     console.log("I received a GET request");
     db.gunList.find(function (err, docs) {
@@ -37,6 +44,9 @@ app.get('/gunList', function (req, res) {
     });
 });
 
+/**
+ * Get a specific gun with the id.
+ */
 app.get('/gunList/:id', function (req, res) {
     var id = req.params.id;
     console.log(id);
@@ -45,6 +55,10 @@ app.get('/gunList/:id', function (req, res) {
     });
 });
 
+
+/**
+ * Add a new gun entry to the database
+ */
 app.post('/gunList', function (req, res) {
     console.log(req.body);
     db.gunList.insert(req.body, function (err, doc) {
@@ -52,6 +66,9 @@ app.post('/gunList', function (req, res) {
     });
 });
 
+/**
+ * Delete a single gun with the id.
+ */
 app.delete('/gunList/:id', function (req, res) {
     var id = req.params.id;
     console.log(id);
@@ -60,6 +77,9 @@ app.delete('/gunList/:id', function (req, res) {
     });
 });
 
+/**
+ * Update a single gun with the id.
+ */
 app.put('/gunList/:id', function (req, res) {
     var id = req.params.id;
     console.log(req.body.modelName);
