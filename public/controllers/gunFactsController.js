@@ -25,7 +25,7 @@ var app = angular.module('gunListApp', []);
 app.controller('gunFactsController', function ($scope, $http) {
     $scope.gunList = [];
     $scope.gun = {modelName: "", country: "", caliber: "", actionType: "",
-        propellant: "", velocity: 0, rateOfFire: 0, range: 0, startService: "",
+        ammunition: "", velocity: 0, rateOfFire: 0, range: 0, startService: "",
         endService: "", manufacturer: "", numProduced: "", description: ""};
 
     var chngFlags = {
@@ -33,7 +33,7 @@ app.controller('gunFactsController', function ($scope, $http) {
         country: false,
         caliber: false,
         actionType: false,
-        propellant: false,
+        ammunition: false,
         velocity: false,
         rateOfFire: false,
         range: false,
@@ -87,8 +87,8 @@ app.controller('gunFactsController', function ($scope, $http) {
             case $scope.gun.actionType:
                 chngFlags.actionType = true;
                 break;
-            case $scope.gun.propellant:
-                chngFlags.propellant = true;
+            case $scope.gun.ammunition:
+                chngFlags.ammunition = true;
                 break;
             case $scope.gun.velocity:
                 chngFlags.velocity = true;
@@ -130,7 +130,7 @@ app.controller('gunFactsController', function ($scope, $http) {
             var dataField = doGunFieldsHaveData();
             // Make sure there are no empty fields
             if (dataField.modelName && dataField.country && dataField.caliber &&
-                    dataField.actionType && dataField.propellant && dataField.velocity &&
+                    dataField.actionType && dataField.ammunition && dataField.velocity &&
                     dataField.rateOfFire && dataField.range && dataField.startService &&
                     dataField.endService && dataField.manufacturer && dataField.numProduced &&
                     dataField.description) {
@@ -166,7 +166,7 @@ app.controller('gunFactsController', function ($scope, $http) {
 
     $scope.update = function (id) {
         if (chngFlags.modelName || chngFlags.country || chngFlags.caliber ||
-                chngFlags.actionType || chngFlags.propellant || chngFlags.velocity ||
+                chngFlags.actionType || chngFlags.ammunition || chngFlags.velocity ||
                 chngFlags.rateOfFire || chngFlags.range || chngFlags.startService ||
                 chngFlags.endService || chngFlags.manufacturer || chngFlags.numProduced ||
                 chngFlags.description) {
@@ -190,7 +190,7 @@ app.controller('gunFactsController', function ($scope, $http) {
             $scope.gun.country = "";
             $scope.gun.caliber = "";
             $scope.gun.actionType = "";
-            $scope.gun.propellant = "";
+            $scope.gun.ammunition = "";
             $scope.gun.velocity = 0;
             $scope.gun.rateOfFire = 0;
             $scope.gun.range = 0;
@@ -208,7 +208,7 @@ app.controller('gunFactsController', function ($scope, $http) {
             country: ($scope.gun.country.length > 0),
             caliber: ($scope.gun.caliber.length > 0),
             actionType: ($scope.gun.actionType.length > 0),
-            propellant: ($scope.gun.propellant.length > 0),
+            ammunition: ($scope.gun.ammunition.length > 0),
             velocity: ($scope.gun.velocity > 0),
             rateOfFire: ($scope.gun.rateOfFire > 0),
             range: ($scope.gun.range > 0),
@@ -227,7 +227,7 @@ app.controller('gunFactsController', function ($scope, $http) {
         chngFlags.country = false;
         chngFlags.caliber = false;
         chngFlags.actionType = false;
-        chngFlags.propellant = false;
+        chngFlags.ammunition = false;
         chngFlags.velocity = false;
         chngFlags.rateOfFire = false;
         chngFlags.range = false;
@@ -254,7 +254,7 @@ app.controller('gunFactsController', function ($scope, $http) {
             alert("Please enter the caliber.");
         } else if (!dataField.actionType) {
             alert("Please enter the action type.");
-        } else if (!dataField.propellant) {
+        } else if (!dataField.ammunition) {
             alert("Please enter the ammunition.");
         } else if (!dataField.velocity) {
             alert("Please enter the velocity.");
