@@ -23,17 +23,15 @@ body {
 
 #main-content {
     width: 2007px;
-    min-width: 2007px;
-    max-width: 2007px;
-    padding: 1em 1em;
-    margin: 1em;
+    min-width: 2020px;
+    max-width: 2020px;
     background-color: #fff;
     border: 1px solid #e5e5e5;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     padding: 5px;
-    margin: 10px 5px 50px 10px;
+    margin: 10px 25px 25px 25px;
     text-align: center;
 }
 
@@ -41,25 +39,43 @@ input.ng-invalid {
     background-color: rgb(230, 242, 255);
 }
 
+h1{
+    padding: 1px;
+    margin:  15px 1px; 
+}
+
 button{
     padding: 1px;
     margin: 1px; 
 }
 
+button.btn-info{
+    padding: 6px;
+    margin: 0px; 
+    width: 60px;
+}
+
+table {
+    padding: 1px;
+    margin:  30px; 
+}
+
 table thead tr {
     display: block; 
     border-style: solid;
-    border-width: 2px 2px 0px 2px;
+    border-width: 1px 1px 0px 1px;
     border-color: black;
-    width: 1974px;
+    width: 1950px;
 }
 
 table th, table td {
     padding: 1px;
     margin:  1px; 
-    width: 160px;
-    min-width: 160px;
-    border: 1px solid #999;
+    width: 150px;
+    min-width: 150px;
+    border-style: solid;
+    border-width: 0px 1px 1px 0px;
+    border-color: black;
     text-align: center;
 }
 
@@ -69,17 +85,20 @@ thead th{
 
 tr#input > th{
     border-style: solid;
-    border-width: 0px 1px 1px 1px;
+    border-width: 0px 1px 1px 0px;
     border-color: black;
     background-color: lightgray;
 }
 
 table tbody {
     display: block;
-    height: 800px;
-    min-height: 800px;
-    max-height: 800px;
-    width: 1974px;
+    height: 780px;
+    min-height: 780px;
+    max-height: 780px;
+    width: 1950px;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: black;
     overflow: auto;
 }
 
@@ -94,147 +113,93 @@ table tr:nth-child(even) {
 /*
    Very Specific widths
 */
-th#country{
+th#country, td#country{
+    width: 145px;
+    min-width: 145px;
+    max-width: 145px;
+}
+
+th#caliber, td#caliber {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+th#actionType, td#actionType{
+    width: 145px;
+    min-width: 145px;
+    max-width: 145px;
+}
+
+th#ammunition, td#ammunition{
     width: 140px;
     min-width: 140px;
     max-width: 140px;
 }
 
-th#caliber{
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
+th#velocity, td#velocity{
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
 }
 
-th#actionType{
-    width: 130px;
-    min-width: 130px;
-    max-width: 130px;
+th#rof, td#rof{
+    width: 85px;
+    min-width: 85px;
+    max-width: 85px;
 }
 
-th#propellant{
-    width: 130px;
-    min-width: 130px;
-    max-width: 130px;
+th#range, td#range{
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
 }
 
-th#velocity{
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
-}
-
-th#rof{
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
-}
-
-th#range{
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
-}
-
-th#startService{
+th#startService, td#startService{
     width: 75px;
     min-width: 75px;
     max-width: 75px;
 }
 
-th#endService{
+th#endService, td#endService{
     width: 75px;
     min-width: 75px;
     max-width: 75px;
 }
 
-th#numproduced{
-    width: 130px;
-    min-width: 13px;
-    max-width: 130px;
+th#numproduced, td#numproduced{
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
 }
 
-th#manufacturer{
-    width: 180px;
-    min-width: 180px;
-    max-width: 180px;
+th#manufacturer, td#manufacturer{
+    width: 190px;
+    min-width: 190px;
+    max-width: 190px;
 }
 
-th#description{
-    width: 230px;
-    min-width: 230px;
-    max-width: 230px;
+th#description, td#description{
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
 }
 
-td#country{
-    width: 140px;
-    min-width: 140px;
-    max-width: 140px;
-}
-
-td#caliber{
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
-}
-
-td#actionType{
+th#action, td#action{
     width: 130px;
     min-width: 130px;
     max-width: 130px;
 }
 
-td#propellant{
-    width: 130px;
-    min-width: 130px;
-    max-width: 130px;
+th#modify{
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
 }
 
-td#velocity{
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
-}
-
-td#rof{
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
-}
-
-td#range{
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
-}
-
-td#startService{
-    width: 75px;
-    min-width: 75px;
-    max-width: 75px;
-}
-
-td#endService{
-    width: 75px;
-    min-width: 75px;
-    max-width: 75px;
-}
-
-td#numproduced{
-    width: 130px;
-    min-width: 130px;
-    max-width: 130px;
-}
-
-td#manufacturer{
-    width: 180px;
-    min-width: 180px;
-    max-width: 180px;
-}
-
-td#description{
-    width: 230px;
-    min-width: 230px;
-    max-width: 230px;
+td#modify{
+    width: 154px;
+    min-width: 154px;
+    max-width: 154px;
 }
 

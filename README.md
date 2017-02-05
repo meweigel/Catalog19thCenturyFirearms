@@ -91,7 +91,5 @@ TODO
 
 1. Add ability to click on column header and sort data.
 
-2. Make the data input row to not scroll just as the table header
-   does not scroll.
-
+2. Possibly add a search field for local only drill down on the table.
 
