@@ -89,7 +89,4 @@ Use of the Web Application is self intuitive.
 TODO
 -----
 
-1. Add ability to click on column header and sort data.
-
-2. Possibly add a search field for local only drill down on the table.
-
+Any Ideas?
