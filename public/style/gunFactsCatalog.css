@@ -57,7 +57,7 @@ button.btn-info{
 
 table {
     padding: 1px;
-    margin:  30px; 
+    margin:  20px; 
 }
 
 table thead tr {
@@ -65,7 +65,7 @@ table thead tr {
     border-style: solid;
     border-width: 1px 1px 0px 1px;
     border-color: black;
-    width: 1950px;
+    width: 1970px;
 }
 
 table th, table td {
@@ -95,7 +95,7 @@ table tbody {
     height: 780px;
     min-height: 780px;
     max-height: 780px;
-    width: 1950px;
+    width: 1970px;
     border-style: solid;
     border-width: 1px 1px 1px 1px;
     border-color: black;
@@ -108,6 +108,14 @@ table tr:nth-child(odd) {
 
 table tr:nth-child(even) {
     background-color: #ffffff;
+}
+
+
+form#filterForm{
+    float: right;
+    width: 270px;
+    margin: 0px 30px 0px 0px;
+    padding: 1px;
 }
 
 /*
@@ -156,15 +164,15 @@ th#range, td#range{
 }
 
 th#startService, td#startService{
-    width: 75px;
-    min-width: 75px;
-    max-width: 75px;
+    width: 85px;
+    min-width: 85px;
+    max-width: 85px;
 }
 
 th#endService, td#endService{
-    width: 75px;
-    min-width: 75px;
-    max-width: 75px;
+    width: 85px;
+    min-width: 85px;
+    max-width: 85px;
 }
 
 th#numproduced, td#numproduced{

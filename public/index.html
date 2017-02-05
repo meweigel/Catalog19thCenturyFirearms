@@ -24,6 +24,7 @@ Author: Michael E. Weigel
         <title>Gun List App</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="style/gunFactsCatalog.css">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
         <script src="controllers/gunFactsController.js"></script>
@@ -37,24 +38,114 @@ Author: Michael E. Weigel
         <div id="main-content" >
             <h1>19th Century Gun Facts Catalog</h1>
             <div ng-app="gunListApp" ng-controller="gunFactsController">
+                <form id="filterForm">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" class="form-control" placeholder="Search Guns" ng-model="searchGuns">
+                        </div>      
+                    </div>
+                </form>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th id="modelName">Model Name</th>
-                            <th id="country">Country of Origin</th>
-                            <th id="caliber">Caliber (inches)</th>
-                            <th id="actionType">Action Type</th>
-                            <th id="ammunition">Ammunition Type</th>
-                            <th id="velocity">Velocity (fps)</th>
-                            <th id="rof">Rate of Fire (per min)</th>
-                            <th id="range">Effective Range (yards)</th>
-                            <th id="startService">Start Service (year)</th>
-                            <th id="endService">End Service (year)</th>
-                            <th id="manufacturer">Manufacturer</th>
-                            <th id="numproduced">Number Manufactured</th>
-                            <th id="description">Description</th>
-                            <th id="action">Action</th>
-                            <th id="modify">Modify Entry</th>
+                            <th id="modelName">
+                                <a href="#" ng-click="sortType = 'modelName'; sortReverse = !sortReverse">
+                                    Model Name
+                                    <span ng-show="sortType == 'modelName' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'modelName' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="country">
+                                <a href="#" ng-click="sortType = 'country'; sortReverse = !sortReverse">
+                                    Country
+                                    <span ng-show="sortType == 'country' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'country' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="caliber">
+                                <a href="#" ng-click="sortType = 'caliber'; sortReverse = !sortReverse">
+                                    Caliber
+                                    <span ng-show="sortType == 'caliber' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'caliber' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="actionType">
+                                <a href="#" ng-click="sortType = 'actionType'; sortReverse = !sortReverse">
+                                    Action Type
+                                    <span ng-show="sortType == 'actionType' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'actionType' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="ammunition">
+                                <a href="#" ng-click="sortType = 'ammunition'; sortReverse = !sortReverse">
+                                    Ammunition
+                                    <span ng-show="sortType == 'ammunition' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'ammunition' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="velocity">
+                                <a href="#" ng-click="sortType = 'velocity'; sortReverse = !sortReverse">
+                                    Velocity
+                                    <span ng-show="sortType == 'velocity' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'velocity' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="rof">
+                                <a href="#" ng-click="sortType = 'rof'; sortReverse = !sortReverse">
+                                    Rate of Fire
+                                    <span ng-show="sortType == 'rof' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'rof' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="range">
+                                <a href="#" ng-click="sortType = 'range'; sortReverse = !sortReverse">
+                                    Effective Range
+                                    <span ng-show="sortType == 'range' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'range' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="startService">
+                                <a href="#" ng-click="sortType = 'startService'; sortReverse = !sortReverse">
+                                    Start Service
+                                    <span ng-show="sortType == 'startService' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'startService' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="endService">
+                                <a href="#" ng-click="sortType = 'endService'; sortReverse = !sortReverse">
+                                    End Service
+                                    <span ng-show="sortType == 'endService' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'endService' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="manufacturer">
+                                <a href="#" ng-click="sortType = 'manufacturer'; sortReverse = !sortReverse">
+                                    Manufacturer
+                                    <span ng-show="sortType == 'manufacturer' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'manufacturer' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="numproduced">
+                                <a href="#" ng-click="sortType = 'numproduced'; sortReverse = !sortReverse">
+                                    Number Produced
+                                    <span ng-show="sortType == 'numproduced' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'numproduced' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="description">
+                                <a href="#" ng-click="sortType = 'description'; sortReverse = !sortReverse">
+                                    Description
+                                    <span ng-show="sortType == 'description' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="action">
+                                Action
+                            </th>
+                            <th id="modify">
+                                Modify
+                            </th>
                         </tr>
                         <tr id="input">
                             <th id="modelName">
@@ -101,7 +192,7 @@ Author: Michael E. Weigel
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="gun in gunList">
+                        <tr ng-repeat="gun in gunList| orderBy:sortType:sortReverse | filter:searchGuns">
                             <td id="modelName">{{gun.modelName}}</td>
                             <td id="country">{{gun.country}}</td>
                             <td id="caliber">{{gun.caliber}}</td>

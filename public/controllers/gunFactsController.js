@@ -24,6 +24,9 @@
 var app = angular.module('gunListApp', []);
 app.controller('gunFactsController', function ($scope, $http) {
     $scope.gunList = [];
+    $scope.sortType = 'modelName'; // set the default sort type
+    $scope.sortReverse = false;  // set the default sort order
+    $scope.searchGuns = '';     // set the default search/filter term
     $scope.gun = {modelName: "", country: "", caliber: "", actionType: "",
         ammunition: "", velocity: 0, rateOfFire: 0, range: 0, startService: "",
         endService: "", manufacturer: "", numProduced: "", description: ""};
