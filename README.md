@@ -23,7 +23,7 @@ Install required software packages
 Install the required Nodejs modules using npm
 ---------------------------------------------
 
-Change directory to where you cloned or unzipped the 19thCenturyGunFactsCatalog project.
+Change directory to where you cloned or unzipped the FactsCatalogOf19thCenturyGuns project.
 
 * run:  npm install express
 
@@ -62,14 +62,14 @@ Open another terminal window
 
 cd mongodb-linux-x86_64-rhel70-3.4.1
 
-run: bin/mongoimport -d gunList -c gunList --file /installDir/19thCenturyGunFactsCatalog/public/data/gunList.json
+run: bin/mongoimport -d gunList -c gunList --file /installDir/FactsCatalogOf19thCenturyGuns/public/data/gunList.json
 
 
 
 Start NodeJS
 ------------
 
-Go to the terminal window of the 19thCenturyGunFactsCatalog project.
+Go to the terminal window of the FactsCatalogOf19thCenturyGuns project.
 
 run: node gunFactsServer
 
@@ -80,7 +80,7 @@ Open a Web Browser (i.e Google Chrome or Firefox)
 
 Enter localhost:3000 in address bar (also location bar or URL bar)
 
-The 19thCenturyGunFactsCatalog web application should start.
+The FactsCatalogOf19thCenturyGuns web application should start.
 
 Use of the Web Application is self intuitive.
 
