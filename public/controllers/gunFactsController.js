@@ -26,7 +26,7 @@ app.controller('gunFactsController', function ($scope, $http) {
     $scope.gunList = [];
     $scope.gun = {modelName: "", country: "", caliber: "", actionType: "",
         propellant: "", velocity: 0, rateOfFire: 0, range: 0, startService: "",
-        endService: "", manufacturer: "", numProduced: 0, description: ""};
+        endService: "", manufacturer: "", numProduced: "", description: ""};
 
     var chngFlags = {
         modelName: false,
@@ -191,9 +191,9 @@ app.controller('gunFactsController', function ($scope, $http) {
             $scope.gun.caliber = "";
             $scope.gun.actionType = "";
             $scope.gun.propellant = "";
-            $scope.gun.velocity = "";
-            $scope.gun.rateOfFire = "";
-            $scope.gun.range = "";
+            $scope.gun.velocity = 0;
+            $scope.gun.rateOfFire = 0;
+            $scope.gun.range = 0;
             $scope.gun.startService = "";
             $scope.gun.endService = "";
             $scope.gun.manufacturer = "";
@@ -215,7 +215,7 @@ app.controller('gunFactsController', function ($scope, $http) {
             startService: ($scope.gun.startService.length > 0),
             endService: ($scope.gun.endService.length > 0),
             manufacturer: ($scope.gun.manufacturer.length > 0),
-            numProduced: ($scope.gun.numProduced > 0),
+            numProduced: ($scope.gun.numProduced.length > 0),
             description: ($scope.gun.description.length > 0)
         };
         return dataField;
