@@ -22,17 +22,23 @@ body {
 }
 
 #main-content {
-    width: 2007px;
-    min-width: 2020px;
-    max-width: 2020px;
+    width: 1860px;
+    height: 1075px;
+    min-height: 1075px;
+    max-height: 1075px;
     background-color: #fff;
     border: 1px solid #e5e5e5;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    padding: 5px;
-    margin: 10px 25px 25px 25px;
+    padding: 20px;
+    margin: 2px 15px 15px 15px;
     text-align: center;
+}
+
+input.form-control{
+    padding: 5px;
+    margin:  1px;  
 }
 
 input.ng-invalid {
@@ -41,38 +47,49 @@ input.ng-invalid {
 
 h1{
     padding: 1px;
-    margin:  15px 1px; 
+    margin:  1px; 
 }
 
-button{
-    padding: 1px;
-    margin: 1px; 
+button.btn{
+    padding: 6px 2px 2px 2px;
+    margin: 5px; 
+    text-align: center;
 }
 
-button.btn-info{
-    padding: 6px;
-    margin: 0px; 
-    width: 60px;
+button.btn-primary, button.btn-danger {
+    width: 70px;
+}
+
+
+button.btn-info, button.btn-warning{
+    width: 65px;
+}
+
+button#clear{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px -6px 0px; 
+    width: 45px;
+    font-size: 13px
 }
 
 table {
-    padding: 1px;
-    margin:  20px; 
+    padding: 2px;
+    margin:  2px; 
 }
 
 table thead tr {
     display: block; 
     border-style: solid;
-    border-width: 1px 1px 0px 1px;
+    border-width: 1px 0px 1px 1px;
     border-color: black;
-    width: 1970px;
 }
 
 table th, table td {
     padding: 1px;
     margin:  1px; 
-    width: 150px;
-    min-width: 150px;
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
     border-style: solid;
     border-width: 0px 1px 1px 0px;
     border-color: black;
@@ -83,21 +100,14 @@ thead th{
     background-color: rgb(255, 204, 153);
 }
 
-tr#input > th{
-    border-style: solid;
-    border-width: 0px 1px 1px 0px;
-    border-color: black;
-    background-color: lightgray;
-}
 
 table tbody {
     display: block;
-    height: 780px;
-    min-height: 780px;
-    max-height: 780px;
-    width: 1970px;
+    height: 800px;
+    min-height: 800px;
+    max-height: 800px;
     border-style: solid;
-    border-width: 1px 1px 1px 1px;
+    border-width: 1px 0px 1px 1px;
     border-color: black;
     overflow: auto;
 }
@@ -110,6 +120,12 @@ table tr:nth-child(even) {
     background-color: #ffffff;
 }
 
+tr#input > th{
+    border-style: solid;
+    border-width: 0px 1px 0px 0px;
+    border-color: black;
+    background-color: lightgray;
+}
 
 form#filterForm{
     float: right;
@@ -121,10 +137,17 @@ form#filterForm{
 /*
    Very Specific widths
 */
-th#country, td#country{
-    width: 145px;
-    min-width: 145px;
-    max-width: 145px;
+
+th#modelName, td#modelName {
+    width: 175px;
+    min-width: 175px;
+    max-width: 175px;
+}
+
+th#country, td#country {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
 }
 
 th#caliber, td#caliber {
@@ -133,58 +156,52 @@ th#caliber, td#caliber {
     max-width: 100px;
 }
 
-th#actionType, td#actionType{
-    width: 145px;
-    min-width: 145px;
-    max-width: 145px;
-}
-
 th#ammunition, td#ammunition{
-    width: 140px;
-    min-width: 140px;
-    max-width: 140px;
+    width: 142px;
+    min-width: 142px;
+    max-width: 142px;
 }
 
 th#velocity, td#velocity{
-    width: 90px;
-    min-width: 90px;
-    max-width: 90px;
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
 }
 
 th#rof, td#rof{
-    width: 85px;
-    min-width: 85px;
-    max-width: 85px;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
 }
 
 th#range, td#range{
-    width: 90px;
-    min-width: 90px;
-    max-width: 90px;
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
 }
 
 th#startService, td#startService{
-    width: 85px;
-    min-width: 85px;
-    max-width: 85px;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
 }
 
 th#endService, td#endService{
-    width: 85px;
-    min-width: 85px;
-    max-width: 85px;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
 }
 
 th#numproduced, td#numproduced{
-    width: 120px;
-    min-width: 120px;
-    max-width: 120px;
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
 }
 
 th#manufacturer, td#manufacturer{
-    width: 190px;
-    min-width: 190px;
-    max-width: 190px;
+    width: 210px;
+    min-width: 210px;
+    max-width: 210px;
 }
 
 th#description, td#description{
@@ -194,20 +211,19 @@ th#description, td#description{
 }
 
 th#action, td#action{
-    width: 130px;
-    min-width: 130px;
-    max-width: 130px;
+    width: 97px;
+    min-width: 97px;
+    max-width: 97px;
 }
 
 th#modify{
-    width: 160px;
-    min-width: 160px;
-    max-width: 160px;
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
 }
 
 td#modify{
-    width: 154px;
-    min-width: 154px;
-    max-width: 154px;
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
 }
-

@@ -65,7 +65,7 @@ Author: Michael E. Weigel
                             </th>
                             <th id="caliber">
                                 <a href="#" ng-click="sortType = 'caliber'; sortReverse = !sortReverse">
-                                    Caliber
+                                    Caliber (ins)
                                     <span ng-show="sortType == 'caliber' && !sortReverse" class="fa fa-caret-down"></span>
                                     <span ng-show="sortType == 'caliber' && sortReverse" class="fa fa-caret-up"></span>
                                 </a>
@@ -86,7 +86,7 @@ Author: Michael E. Weigel
                             </th>
                             <th id="velocity">
                                 <a href="#" ng-click="sortType = 'velocity'; sortReverse = !sortReverse">
-                                    Velocity
+                                    Velocity (fps)
                                     <span ng-show="sortType == 'velocity' && !sortReverse" class="fa fa-caret-down"></span>
                                     <span ng-show="sortType == 'velocity' && sortReverse" class="fa fa-caret-up"></span>
                                 </a>
@@ -100,21 +100,21 @@ Author: Michael E. Weigel
                             </th>
                             <th id="range">
                                 <a href="#" ng-click="sortType = 'range'; sortReverse = !sortReverse">
-                                    Effective Range
+                                    Effective Range (yds)
                                     <span ng-show="sortType == 'range' && !sortReverse" class="fa fa-caret-down"></span>
                                     <span ng-show="sortType == 'range' && sortReverse" class="fa fa-caret-up"></span>
                                 </a>
                             </th>
                             <th id="startService">
                                 <a href="#" ng-click="sortType = 'startService'; sortReverse = !sortReverse">
-                                    Start Service
+                                    Start Service (yr)
                                     <span ng-show="sortType == 'startService' && !sortReverse" class="fa fa-caret-down"></span>
                                     <span ng-show="sortType == 'startService' && sortReverse" class="fa fa-caret-up"></span>
                                 </a>
                             </th>
                             <th id="endService">
                                 <a href="#" ng-click="sortType = 'endService'; sortReverse = !sortReverse">
-                                    End Service
+                                    End Service (yr)
                                     <span ng-show="sortType == 'endService' && !sortReverse" class="fa fa-caret-down"></span>
                                     <span ng-show="sortType == 'endService' && sortReverse" class="fa fa-caret-up"></span>
                                 </a>
@@ -140,11 +140,12 @@ Author: Michael E. Weigel
                                     <span ng-show="sortType == 'description' && sortReverse" class="fa fa-caret-up"></span>
                                 </a>
                             </th>
-                            <th id="action">
-                                Action
+                            <th id="action" style="color:background">
+                                Action<br><br>
                             </th>
-                            <th id="modify">
-                                Modify
+                            <th id="modify" style="color:background">
+                                Modify<br>
+                                <button id="clear" class="btn btn-info" ng-click="deselect()">Clear</button>
                             </th>
                         </tr>
                         <tr id="input">
@@ -188,7 +189,7 @@ Author: Michael E. Weigel
                                 <input class="form-control" type="text" ng-model="gun.description" ng-change="onChange(gun.description)" required>
                             </th>
                             <th id="action"><button class="btn btn-primary" ng-click="addGun()">Add Gun</button></th>
-                            <th id="modify"><button class="btn btn-info" ng-click="update(gun._id)">Update</button>&nbsp;<button class="btn btn-info" ng-click="deselect()">Clear</button></th>
+                            <th id="modify"><button class="btn btn-info" ng-click="update(gun._id)">Update</button></th>
                         </tr>
                     </thead>
                     <tbody>
