@@ -130,13 +130,13 @@ app.controller('firearmFactsController', function ($scope, $http) {
 
         // Only add firearm if it doesn't already exist
         if (index === -1) {
-            var dataField = doFirearmFieldsHaveData();
+            var dataFlag = doFieldsHaveData();
             // Make sure there are no empty fields
-            if (dataField.modelName && dataField.country && dataField.caliber &&
-                    dataField.actionType && dataField.ammunition && dataField.velocity &&
-                    dataField.rateOfFire && dataField.range && dataField.startService &&
-                    dataField.endService && dataField.manufacturer && dataField.numProduced &&
-                    dataField.description) {
+            if (dataFlag.modelName && dataFlag.country && dataFlag.caliber &&
+                    dataFlag.actionType && dataFlag.ammunition && dataFlag.velocity &&
+                    dataFlag.rateOfFire && dataFlag.range && dataFlag.startService &&
+                    dataFlag.endService && dataFlag.manufacturer && dataFlag.numProduced &&
+                    dataFlag.description) {
                 if (isYearValid($scope.firearm.startService)) {
                     console.log($scope.firearm);
                     $http.post('/firearmsList', $scope.firearm).then(function (response) {
@@ -147,11 +147,10 @@ app.controller('firearmFactsController', function ($scope, $http) {
                     alert("19 Century Format: 18XX");
                 }
             } else {
-                showEmptyFieldAlert(dataField);
+                showEmptyFieldAlert(dataFlag);
             }
         }
     };
-
 
     $scope.remove = function (id) {
         console.log(id);
@@ -174,13 +173,13 @@ app.controller('firearmFactsController', function ($scope, $http) {
                 chngFlags.endService || chngFlags.manufacturer || chngFlags.numProduced ||
                 chngFlags.description) {
 
-            var dataField = doFirearmFieldsHaveData();
+            var dataFlag = doFieldsHaveData();
             // Make sure there are no empty fields
-            if (dataField.modelName && dataField.country && dataField.caliber &&
-                    dataField.actionType && dataField.ammunition && dataField.velocity &&
-                    dataField.rateOfFire && dataField.range && dataField.startService &&
-                    dataField.endService && dataField.manufacturer && dataField.numProduced &&
-                    dataField.description) {
+            if (dataFlag.modelName && dataFlag.country && dataFlag.caliber &&
+                    dataFlag.actionType && dataFlag.ammunition && dataFlag.velocity &&
+                    dataFlag.rateOfFire && dataFlag.range && dataFlag.startService &&
+                    dataFlag.endService && dataFlag.manufacturer && dataFlag.numProduced &&
+                    dataFlag.description) {
                 if (isYearValid($scope.firearm.startService)) {
                     console.log($scope.firearm._id);
                     $http.put('/firearmsList/' + id, $scope.firearm).then(function (repsonse) {
@@ -191,7 +190,7 @@ app.controller('firearmFactsController', function ($scope, $http) {
                     alert("19 Century Format: 18XX");
                 }
             } else {
-                showEmptyFieldAlert(dataField);
+                showEmptyFieldAlert(dataFlag);
             }
         }
     };
@@ -215,23 +214,23 @@ app.controller('firearmFactsController', function ($scope, $http) {
         }
     };
 
-    function doFirearmFieldsHaveData() {
-        var dataField = {
-            modelName: ($scope.firearm.modelName.length > 0),
-            country: ($scope.firearm.country.length > 0),
-            caliber: ($scope.firearm.caliber.length > 0),
-            actionType: ($scope.firearm.actionType.length > 0),
-            ammunition: ($scope.firearm.ammunition.length > 0),
-            velocity: ($scope.firearm.velocity > 0),
-            rateOfFire: ($scope.firearm.rateOfFire > 0),
-            range: ($scope.firearm.range > 0),
-            startService: ($scope.firearm.startService > 0),
-            endService: ($scope.firearm.endService > 0),
-            manufacturer: ($scope.firearm.manufacturer.length > 0),
-            numProduced: ($scope.firearm.numProduced.length > 0),
-            description: ($scope.firearm.description.length > 0)
+    function doFieldsHaveData() {
+        var dataFlag = {
+            modelName: ($scope.firearm.modelName !== undefined),
+            country: ($scope.firearm.country !== undefined),
+            caliber: ($scope.firearm.caliber !== undefined),
+            actionType: ($scope.firearm.actionType !== undefined),
+            ammunition: ($scope.firearm.ammunition !== undefined),
+            velocity: ($scope.firearm.velocity !== undefined),
+            rateOfFire: ($scope.firearm.rateOfFire !== undefined),
+            range: ($scope.firearm.range !== undefined),
+            startService: ($scope.firearm.startService !== undefined),
+            endService: ($scope.firearm.endService !== undefined),
+            manufacturer: ($scope.firearm.manufacturer !== undefined),
+            numProduced: ($scope.firearm.numProduced !== undefined),
+            description: ($scope.firearm.description !== undefined)
         };
-        return dataField;
+        return dataFlag;
     }
 
 
@@ -258,32 +257,32 @@ app.controller('firearmFactsController', function ($scope, $http) {
     }
 
 
-    function showEmptyFieldAlert(dataField) {
-        if (!dataField.modelName) {
+    function showEmptyFieldAlert(dataFlag) {
+        if (!dataFlag.modelName) {
             alert("Please enter the model name.");
-        } else if (!dataField.country) {
+        } else if (!dataFlag.country) {
             alert("Please enter the country.");
-        } else if (!dataField.caliber) {
+        } else if (!dataFlag.caliber) {
             alert("Please enter the caliber.");
-        } else if (!dataField.actionType) {
+        } else if (!dataFlag.actionType) {
             alert("Please enter the action type.");
-        } else if (!dataField.ammunition) {
+        } else if (!dataFlag.ammunition) {
             alert("Please enter the ammunition.");
-        } else if (!dataField.velocity) {
+        } else if (!dataFlag.velocity) {
             alert("Please enter the velocity.");
-        } else if (!dataField.rateOfFire) {
+        } else if (!dataFlag.rateOfFire) {
             alert("Please enter the rate of fire.");
-        } else if (!dataField.range) {
+        } else if (!dataFlag.range) {
             alert("Please enter the range.");
-        } else if (!dataField.startService) {
+        } else if (!dataFlag.startService) {
             alert("Please enter the start service date.");
-        } else if (!dataField.endService) {
+        } else if (!dataFlag.endService) {
             alert("Please enter the end service date.");
-        } else if (!dataField.manufacturer) {
+        } else if (!dataFlag.manufacturer) {
             alert("Please enter the manufacturer.");
-        } else if (!dataField.numProduced) {
+        } else if (!dataFlag.numProduced) {
             alert("Please enter the number manufactured.");
-        } else if (!dataField.description) {
+        } else if (!dataFlag.description) {
             alert("Please enter the description.");
         }
     }
