@@ -21,13 +21,13 @@ Author: Michael E. Weigel
 <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        <title>Gun List App</title>
+        <title>Firearm List App</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="style/gunFactsCatalog.css">
+        <link rel="stylesheet" href="style/firearmFactsCatalog.css">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-        <script src="controllers/gunFactsController.js"></script>
+        <script src="controllers/firearmFactsController.js"></script>
     </head>
     <body>
         <noscript>
@@ -36,13 +36,13 @@ Author: Michael E. Weigel
             enable Javascript and reload this page!</h2>
         </noscript>
         <div id="main-content" >
-            <h1>19th Century Gun Facts Catalog</h1>
-            <div ng-app="gunListApp" ng-controller="gunFactsController">
+            <h1>Catalog of 19th Century Firearms </h1>
+            <div ng-app="firearmsListApp" ng-controller="firearmFactsController">
                 <form id="filterForm">
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                            <input type="text" class="form-control" placeholder="Search Guns" ng-model="searchGuns">
+                            <input type="text" class="form-control" placeholder="Search Firearms" ng-model="searchFirearms">
                         </div>      
                     </div>
                 </form>
@@ -150,65 +150,65 @@ Author: Michael E. Weigel
                         </tr>
                         <tr id="input">
                             <th id="modelName">
-                                <input class="form-control" type="text" ng-model="gun.modelName" ng-change="onChange(gun.modelName)" required>
+                                <input class="form-control" type="text" ng-model="firearm.modelName" ng-change="onChange(firearm.modelName)" required>
                             </th>
                             <th id="country">
-                                <input class="form-control" type="text" ng-model="gun.country" ng-change="onChange(gun.country)" required>
+                                <input class="form-control" type="text" ng-model="firearm.country" ng-change="onChange(firearm.country)" required>
                             </th>
                             <th id="caliber">
-                                <input class="form-control" type="text" ng-model="gun.caliber" ng-change="onChange(gun.caliber)" required>
+                                <input class="form-control" type="text" ng-model="firearm.caliber" ng-change="onChange(firearm.caliber)" required>
                             </th>
                             <th id="actionType">
-                                <input class="form-control" type="text" ng-model="gun.actionType" ng-change="onChange(gun.actionType)" required>
+                                <input class="form-control" type="text" ng-model="firearm.actionType" ng-change="onChange(firearm.actionType)" required>
                             </th>
                             <th id="ammunition">
-                                <input class="form-control" type="text" ng-model="gun.ammunition" ng-change="onChange(gun.ammunition)" required>
+                                <input class="form-control" type="text" ng-model="firearm.ammunition" ng-change="onChange(firearm.ammunition)" required>
                             </th>
                             <th id="velocity">
-                                <input class="form-control" type="number" ng-model="gun.velocity" ng-change="onChange(gun.velocity)" required>
+                                <input class="form-control" type="number" ng-model="firearm.velocity" ng-change="onChange(firearm.velocity)" required>
                             </th>
                             <th id="rof">
-                                <input class="form-control" type="number" ng-model="gun.rateOfFire" ng-change="onChange(gun.rateOfFire)" required>
+                                <input class="form-control" type="number" ng-model="firearm.rateOfFire" ng-change="onChange(firearm.rateOfFire)" required>
                             </th>
                             <th id="range">
-                                <input class="form-control" type="number" ng-model="gun.range" ng-change="onChange(gun.range)" required>
+                                <input class="form-control" type="number" ng-model="firearm.range" ng-change="onChange(firearm.range)" required>
                             </th>
                             <th id="startService">
-                                <input class="form-control" type="text"  ng-model="gun.startService" ng-change="onChange(gun.startService)" required>
+                                <input class="form-control" type="number"  ng-model="firearm.startService" ng-change="onChange(firearm.startService)" required>
                             </th>
                             <th id="endService">
-                                <input class="form-control" type="text"  ng-model="gun.endService" ng-change="onChange(gun.endService)" required>
+                                <input class="form-control" type="number"  ng-model="firearm.endService" ng-change="onChange(firearm.endService)" required>
                             </th>
                             <th id="manufacturer">
-                                <input class="form-control" type="text" ng-model="gun.manufacturer" ng-change="onChange(gun.manufacturer)" required>
+                                <input class="form-control" type="text" ng-model="firearm.manufacturer" ng-change="onChange(firearm.manufacturer)" required>
                             </th>
                             <th id="numproduced">
-                                <input class="form-control" type="text" ng-model="gun.numProduced" ng-change="onChange(gun.numProduced)" required>
+                                <input class="form-control" type="text" ng-model="firearm.numProduced" ng-change="onChange(firearm.numProduced)" required>
                             </th>
                             <th id="description">
-                                <input class="form-control" type="text" ng-model="gun.description" ng-change="onChange(gun.description)" required>
+                                <input class="form-control" type="text" ng-model="firearm.description" ng-change="onChange(firearm.description)" required>
                             </th>
-                            <th id="action"><button class="btn btn-primary" ng-click="addGun()">Add Gun</button></th>
-                            <th id="modify"><button class="btn btn-info" ng-click="update(gun._id)">Update</button></th>
+                            <th id="action"><button class="btn btn-primary" ng-click="addFirearm()">Add</button></th>
+                            <th id="modify"><button class="btn btn-info" ng-click="update(firearm._id)">Update</button></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="gun in gunList| orderBy:sortType:sortReverse | filter:searchGuns">
-                            <td id="modelName">{{gun.modelName}}</td>
-                            <td id="country">{{gun.country}}</td>
-                            <td id="caliber">{{gun.caliber}}</td>
-                            <td id="actionType">{{gun.actionType}}</td>
-                            <td id="ammunition">{{gun.ammunition}}</td>
-                            <td id="velocity">{{gun.velocity}}</td>
-                            <td id="rof">{{gun.rateOfFire}}</td>
-                            <td id="range">{{gun.range}}</td>
-                            <td id="startService">{{gun.startService}}</td>
-                            <td id="endService">{{gun.endService}}</td>
-                            <td id="manufacturer">{{gun.manufacturer}}</td>
-                            <td id="numproduced">{{gun.numProduced}}</td>
-                            <td id="description">{{gun.description}}</td> 
-                            <td id="action"><button class="btn btn-danger" ng-click="remove(gun._id)">Remove</button></td>
-                            <td id="modify"><button class="btn btn-warning" ng-click="edit(gun._id)">Edit</button></td>
+                        <tr ng-repeat="firearm in firearmsList| orderBy:sortType:sortReverse | filter:searchFirearms">
+                            <td id="modelName">{{firearm.modelName}}</td>
+                            <td id="country">{{firearm.country}}</td>
+                            <td id="caliber">{{firearm.caliber}}</td>
+                            <td id="actionType">{{firearm.actionType}}</td>
+                            <td id="ammunition">{{firearm.ammunition}}</td>
+                            <td id="velocity">{{firearm.velocity}}</td>
+                            <td id="rof">{{firearm.rateOfFire}}</td>
+                            <td id="range">{{firearm.range}}</td>
+                            <td id="startService">{{firearm.startService}}</td>
+                            <td id="endService">{{firearm.endService}}</td>
+                            <td id="manufacturer">{{firearm.manufacturer}}</td>
+                            <td id="numproduced">{{firearm.numProduced}}</td>
+                            <td id="description">{{firearm.description}}</td> 
+                            <td id="action"><button class="btn btn-danger" ng-click="remove(firearm._id)">Remove</button></td>
+                            <td id="modify"><button class="btn btn-warning" ng-click="edit(firearm._id)">Edit</button></td>
                         </tr>
                     </tbody>
                 </table>	 

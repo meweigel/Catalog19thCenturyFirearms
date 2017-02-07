@@ -22,7 +22,7 @@ body {
 }
 
 #main-content {
-    width: 1860px;
+    width: 1865px;
     height: 1075px;
     min-height: 1075px;
     max-height: 1075px;
@@ -31,8 +31,8 @@ body {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    padding: 20px;
-    margin: 2px 15px 15px 15px;
+    padding: 17px;
+    margin: 2px 10px 10px 10px;
     text-align: center;
 }
 
@@ -73,8 +73,9 @@ button#clear{
 }
 
 table {
-    padding: 2px;
-    margin:  2px; 
+    padding: 1px;
+    margin:  1px; 
+    width: 1827px;
 }
 
 table thead tr {
@@ -82,6 +83,19 @@ table thead tr {
     border-style: solid;
     border-width: 1px 0px 1px 1px;
     border-color: black;
+    width: 1827px;
+}
+
+table tbody {
+    display: block;
+    height: 800px;
+    min-height: 800px;
+    max-height: 800px;
+    width: 1827px;
+    border-style: solid;
+    border-width: 1px 0px 1px 1px;
+    border-color: black;
+    overflow: auto;
 }
 
 table th, table td {
@@ -98,18 +112,6 @@ table th, table td {
 
 thead th{
     background-color: rgb(255, 204, 153);
-}
-
-
-table tbody {
-    display: block;
-    height: 800px;
-    min-height: 800px;
-    max-height: 800px;
-    border-style: solid;
-    border-width: 1px 0px 1px 1px;
-    border-color: black;
-    overflow: auto;
 }
 
 table tr:nth-child(odd) {
@@ -175,21 +177,21 @@ th#rof, td#rof{
 }
 
 th#range, td#range{
-    width: 80px;
-    min-width: 80px;
-    max-width: 80px;
+    width: 78px;
+    min-width: 78px;
+    max-width: 78px;
 }
 
 th#startService, td#startService{
-    width: 70px;
-    min-width: 70px;
-    max-width: 70px;
+    width: 75px;
+    min-width: 75px;
+    max-width: 75px;
 }
 
 th#endService, td#endService{
-    width: 70px;
-    min-width: 70px;
-    max-width: 70px;
+    width: 75px;
+    min-width: 75px;
+    max-width: 75px;
 }
 
 th#numproduced, td#numproduced{
@@ -217,13 +219,13 @@ th#action, td#action{
 }
 
 th#modify{
-    width: 110px;
-    min-width: 110px;
-    max-width: 110px;
+    width: 108px;
+    min-width: 108px;
+    max-width: 108px;
 }
 
 td#modify{
-    width: 110px;
-    min-width: 110px;
-    max-width: 110px;
+    width: 108px;
+    min-width: 108px;
+    max-width: 108px;
 }

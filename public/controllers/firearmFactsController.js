@@ -21,15 +21,15 @@
  * 
  * The AngularJS Controller
  */
-var app = angular.module('gunListApp', []);
-app.controller('gunFactsController', function ($scope, $http) {
-    $scope.gunList = [];
+var app = angular.module('firearmsListApp', []);
+app.controller('firearmFactsController', function ($scope, $http) {
+    $scope.firearmsList = [];
     $scope.sortType = 'modelName'; // set the default sort type
     $scope.sortReverse = false;  // set the default sort order
-    $scope.searchGuns = '';     // set the default search/filter term
-    $scope.gun = {modelName: "", country: "", caliber: "", actionType: "",
-        ammunition: "", velocity: 0, rateOfFire: 0, range: 0, startService: "",
-        endService: "", manufacturer: "", numProduced: "", description: ""};
+    $scope.searchFirearms = '';     // set the default search/filter term
+    $scope.firearm = {modelName: "", country: "", caliber: "", actionType: "",
+        ammunition: "", velocity: 0, rateOfFire: 0, range: 0, startService: 0,
+        endService: 0, manufacturer: "", numProduced: "", description: ""};
 
     var chngFlags = {
         modelName: false,
@@ -47,25 +47,25 @@ app.controller('gunFactsController', function ($scope, $http) {
         description: false
     };
 
-    // Refresh the entire gun list
+    // Refresh the entire firearm list
     var refresh = function () {
-        $http.get('/gunList').then(function (response) {
+        $http.get('/firearmsList').then(function (response) {
             console.log("I got the data I requested");
-            $scope.gunList = response.data;
+            $scope.firearmsList = response.data;
             $scope.deselect();
         }, function (response) {
             console.error(response.data);
         });
     };
 
-    // Refresh a single gun item
-    var refreshGun = function (id) {
-        $http.get('/gunList/' + id).then(function (response) {
-            console.log("I got the gun data for: " + response.data.modelName);
-            var index = $scope.gunList.map(function (x) {
+    // Refresh a single firearm item
+    var refreshFirearm = function (id) {
+        $http.get('/firearmsList/' + id).then(function (response) {
+            console.log("I got the firearm data for: " + response.data.modelName);
+            var index = $scope.firearmsList.map(function (x) {
                 return x.modelName;
             }).indexOf(response.data.modelName);
-            $scope.gunList[index] = response.data;
+            $scope.firearmsList[index] = response.data;
             $scope.deselect();
         }, function (response) {
             console.error(response.data);
@@ -75,71 +75,71 @@ app.controller('gunFactsController', function ($scope, $http) {
     // Get the data for when the page is loaded
     refresh();
 
-    // Montitor gun field Chngs
+    // Montitor firearm field Chngs
     $scope.onChange = function (data) {
         switch (data) {
-            case $scope.gun.modelName:
+            case $scope.firearm.modelName:
                 chngFlags.modelName = true;
                 break;
-            case $scope.gun.country:
+            case $scope.firearm.country:
                 chngFlags.country = true;
                 break;
-            case $scope.gun.caliber:
+            case $scope.firearm.caliber:
                 chngFlags.caliber = true;
                 break;
-            case $scope.gun.actionType:
+            case $scope.firearm.actionType:
                 chngFlags.actionType = true;
                 break;
-            case $scope.gun.ammunition:
+            case $scope.firearm.ammunition:
                 chngFlags.ammunition = true;
                 break;
-            case $scope.gun.velocity:
+            case $scope.firearm.velocity:
                 chngFlags.velocity = true;
                 break;
-            case $scope.gun.rateOfFire:
+            case $scope.firearm.rateOfFire:
                 chngFlags.rateOfFire = true;
                 break;
-            case $scope.gun.range:
+            case $scope.firearm.range:
                 chngFlags.range = true;
                 break;
-            case $scope.gun.startService:
+            case $scope.firearm.startService:
                 chngFlags.startService = true;
                 break;
-            case $scope.gun.endService:
+            case $scope.firearm.endService:
                 chngFlags.endService = true;
                 break;
-            case $scope.gun.manufacturer:
+            case $scope.firearm.manufacturer:
                 chngFlags.manufacturer = true;
                 break;
-            case $scope.gun.numProduced:
+            case $scope.firearm.numProduced:
                 chngFlags.numProduced = true;
                 break;
-            case $scope.gun.description:
+            case $scope.firearm.description:
                 chngFlags.description = true;
                 break;
         }
     };
 
-    // Add a new gun type
-    $scope.addGun = function () {
-        var index = $scope.gunList.map(function (x) {
+    // Add a new firearm type
+    $scope.addFirearm = function () {
+        var index = $scope.firearmsList.map(function (x) {
             return x._id;
-        }).indexOf($scope.gun._id);
+        }).indexOf($scope.firearm._id);
 
         console.log("index = " + index);
 
-        // Only add gun if it doesn't already exist
+        // Only add firearm if it doesn't already exist
         if (index === -1) {
-            var dataField = doGunFieldsHaveData();
+            var dataField = doFirearmFieldsHaveData();
             // Make sure there are no empty fields
             if (dataField.modelName && dataField.country && dataField.caliber &&
                     dataField.actionType && dataField.ammunition && dataField.velocity &&
                     dataField.rateOfFire && dataField.range && dataField.startService &&
                     dataField.endService && dataField.manufacturer && dataField.numProduced &&
                     dataField.description) {
-                if (isYearValid($scope.gun.startService)) {
-                    console.log($scope.gun);
-                    $http.post('/gunList', $scope.gun).then(function (response) {
+                if (isYearValid($scope.firearm.startService)) {
+                    console.log($scope.firearm);
+                    $http.post('/firearmsList', $scope.firearm).then(function (response) {
                         console.log(response.data);
                         refresh();
                     });
@@ -155,15 +155,15 @@ app.controller('gunFactsController', function ($scope, $http) {
 
     $scope.remove = function (id) {
         console.log(id);
-        $http.delete('/gunList/' + id).then(function (repsonse) {
+        $http.delete('/firearmsList/' + id).then(function (repsonse) {
             refresh();
         });
     };
 
     $scope.edit = function (id) {
         console.log(id);
-        $http.get('/gunList/' + id).then(function (response) {
-            $scope.gun = response.data;
+        $http.get('/firearmsList/' + id).then(function (response) {
+            $scope.firearm = response.data;
         });
     };
 
@@ -174,52 +174,62 @@ app.controller('gunFactsController', function ($scope, $http) {
                 chngFlags.endService || chngFlags.manufacturer || chngFlags.numProduced ||
                 chngFlags.description) {
 
-            if (isYearValid($scope.gun.startService)) {
-                console.log($scope.gun._id);
-                $http.put('/gunList/' + id, $scope.gun).then(function (repsonse) {
-                    refreshGun(repsonse.data._id);
-                    resetChangeFlags();
-                });
+            var dataField = doFirearmFieldsHaveData();
+            // Make sure there are no empty fields
+            if (dataField.modelName && dataField.country && dataField.caliber &&
+                    dataField.actionType && dataField.ammunition && dataField.velocity &&
+                    dataField.rateOfFire && dataField.range && dataField.startService &&
+                    dataField.endService && dataField.manufacturer && dataField.numProduced &&
+                    dataField.description) {
+                if (isYearValid($scope.firearm.startService)) {
+                    console.log($scope.firearm._id);
+                    $http.put('/firearmsList/' + id, $scope.firearm).then(function (repsonse) {
+                        refreshFirearm(repsonse.data._id);
+                        resetChangeFlags();
+                    });
+                } else {
+                    alert("19 Century Format: 18XX");
+                }
             } else {
-                alert("19 Century Year Format: 18XX");
+                showEmptyFieldAlert(dataField);
             }
         }
     };
 
     $scope.deselect = function () {
-        if ($scope.gun !== null) {
-            $scope.gun._id = "";
-            $scope.gun.modelName = "";
-            $scope.gun.country = "";
-            $scope.gun.caliber = "";
-            $scope.gun.actionType = "";
-            $scope.gun.ammunition = "";
-            $scope.gun.velocity = 0;
-            $scope.gun.rateOfFire = 0;
-            $scope.gun.range = 0;
-            $scope.gun.startService = "";
-            $scope.gun.endService = "";
-            $scope.gun.manufacturer = "";
-            $scope.gun.numProduced = "";
-            $scope.gun.description = "";
+        if ($scope.firearm !== null) {
+            $scope.firearm._id = "";
+            $scope.firearm.modelName = "";
+            $scope.firearm.country = "";
+            $scope.firearm.caliber = "";
+            $scope.firearm.actionType = "";
+            $scope.firearm.ammunition = "";
+            $scope.firearm.velocity = 0;
+            $scope.firearm.rateOfFire = 0;
+            $scope.firearm.range = 0;
+            $scope.firearm.startService = 0;
+            $scope.firearm.endService = 0;
+            $scope.firearm.manufacturer = "";
+            $scope.firearm.numProduced = "";
+            $scope.firearm.description = "";
         }
     };
 
-    function doGunFieldsHaveData() {
+    function doFirearmFieldsHaveData() {
         var dataField = {
-            modelName: ($scope.gun.modelName.length > 0),
-            country: ($scope.gun.country.length > 0),
-            caliber: ($scope.gun.caliber.length > 0),
-            actionType: ($scope.gun.actionType.length > 0),
-            ammunition: ($scope.gun.ammunition.length > 0),
-            velocity: ($scope.gun.velocity > 0),
-            rateOfFire: ($scope.gun.rateOfFire > 0),
-            range: ($scope.gun.range > 0),
-            startService: ($scope.gun.startService.length > 0),
-            endService: ($scope.gun.endService.length > 0),
-            manufacturer: ($scope.gun.manufacturer.length > 0),
-            numProduced: ($scope.gun.numProduced.length > 0),
-            description: ($scope.gun.description.length > 0)
+            modelName: ($scope.firearm.modelName.length > 0),
+            country: ($scope.firearm.country.length > 0),
+            caliber: ($scope.firearm.caliber.length > 0),
+            actionType: ($scope.firearm.actionType.length > 0),
+            ammunition: ($scope.firearm.ammunition.length > 0),
+            velocity: ($scope.firearm.velocity > 0),
+            rateOfFire: ($scope.firearm.rateOfFire > 0),
+            range: ($scope.firearm.range > 0),
+            startService: ($scope.firearm.startService > 0),
+            endService: ($scope.firearm.endService > 0),
+            manufacturer: ($scope.firearm.manufacturer.length > 0),
+            numProduced: ($scope.firearm.numProduced.length > 0),
+            description: ($scope.firearm.description.length > 0)
         };
         return dataField;
     }

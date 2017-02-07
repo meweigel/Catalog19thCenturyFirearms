@@ -27,66 +27,66 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
-var db = mongojs('gunList', ['gunList']);
+var db = mongojs('firearmsList', ['firearmsList']);
 var bodyParser = require('body-parser');
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
 
 /**
- * Get All guns
+ * Get All firearms
  */
-app.get('/gunList', function (req, res) {
+app.get('/firearmsList', function (req, res) {
     console.log("I received a GET request");
-    db.gunList.find(function (err, docs) {
+    db.firearmsList.find(function (err, docs) {
         console.log(docs);
         res.json(docs);
     });
 });
 
 /**
- * Get a specific gun with the id.
+ * Get a specific firearm with the id.
  */
-app.get('/gunList/:id', function (req, res) {
+app.get('/firearmsList/:id', function (req, res) {
     var id = req.params.id;
     console.log(id);
-    db.gunList.findOne({_id: mongojs.ObjectID(id)}, function (err, doc) {
+    db.firearmsList.findOne({_id: mongojs.ObjectID(id)}, function (err, doc) {
         res.json(doc);
     });
 });
 
 
 /**
- * Add a new gun entry to the database
+ * Add a new firearm entry to the database
  */
-app.post('/gunList', function (req, res) {
+app.post('/firearmsList', function (req, res) {
     console.log(req.body);
-    db.gunList.insert(req.body, function (err, doc) {
+    db.firearmsList.insert(req.body, function (err, doc) {
         res.json(doc);
     });
 });
 
 /**
- * Delete a single gun with the id.
+ * Delete a single firearm with the id.
  */
-app.delete('/gunList/:id', function (req, res) {
+app.delete('/firearmsList/:id', function (req, res) {
     var id = req.params.id;
     console.log(id);
-    db.gunList.remove({_id: mongojs.ObjectID(id)}, function (err, doc) {
+    db.firearmsList.remove({_id: mongojs.ObjectID(id)}, function (err, doc) {
         res.json(doc);
     });
 });
 
 /**
- * Update a single gun with the id.
+ * Update a single firearm with the id.
  */
-app.put('/gunList/:id', function (req, res) {
+app.put('/firearmsList/:id', function (req, res) {
     var id = req.params.id;
     console.log(req.body.modelName);
-    db.gunList.findAndModify({query: {_id: mongojs.ObjectId(id)},
+    db.firearmsList.findAndModify({query: {_id: mongojs.ObjectId(id)},
         update: {$set: {modelName: req.body.modelName, country: req.body.country,
                 caliber: req.body.caliber, actionType: req.body.actionType,
-                propellant: req.body.propellant, velocity: req.body.velocity,
+                ammunition: req.body.ammunition, velocity: req.body.velocity,
                 rateOfFire: req.body.rateOfFire, range: req.body.range,
                 startService: req.body.startService, endService: req.body.endService,
                 manufacturer: req.body.manufacturer, numProduced: req.body.numProduced,
