@@ -56,13 +56,18 @@ button.btn{
     text-align: center;
 }
 
-button.btn-primary, button.btn-danger {
-    width: 70px;
+button.btn-primary {
+    padding: 1px;
+    margin: 0px 0px 3px 0px; 
+    width: 55px;
+    font-size: 13px
 }
 
-
-button.btn-info, button.btn-warning{
-    width: 65px;
+button.btn-info, button.btn-danger {
+    padding: 1px;
+    margin: 0px 0px -6px 0px; 
+    width: 55px;
+    font-size: 13px
 }
 
 button#clear{
@@ -75,15 +80,15 @@ button#clear{
 table {
     padding: 1px;
     margin:  1px; 
-    width: 1827px;
+    width: 1818px;
 }
 
 table thead tr {
     display: block; 
     border-style: solid;
-    border-width: 1px 0px 1px 1px;
+    border-width: 2px 0px 0px 1px;
     border-color: black;
-    width: 1827px;
+    width: 1818px;
 }
 
 table tbody {
@@ -91,9 +96,8 @@ table tbody {
     height: 800px;
     min-height: 800px;
     max-height: 800px;
-    width: 1827px;
     border-style: solid;
-    border-width: 1px 0px 1px 1px;
+    border-width: 0px 0px 1px 1px;
     border-color: black;
     overflow: auto;
 }
@@ -123,8 +127,10 @@ table tr:nth-child(even) {
 }
 
 tr#input > th{
+    padding: 3px 3px 7px 3px;
+    margin:  5px 2px 7px 2px;
     border-style: solid;
-    border-width: 0px 1px 0px 0px;
+    border-width: 0px 1px 1px 0px;
     border-color: black;
     background-color: lightgray;
 }
@@ -132,18 +138,23 @@ tr#input > th{
 form#filterForm{
     float: right;
     width: 270px;
-    margin: 0px 30px 0px 0px;
+    margin: 0x 25px 0px 0px;
     padding: 1px;
 }
 
 /*
    Very Specific widths
 */
-
 th#modelName, td#modelName {
     width: 175px;
     min-width: 175px;
     max-width: 175px;
+}
+
+th#modelImage, td#modelImage{
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
 }
 
 th#country, td#country {
@@ -213,19 +224,11 @@ th#description, td#description{
 }
 
 th#action, td#action{
-    width: 97px;
-    min-width: 97px;
-    max-width: 97px;
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
 }
 
-th#modify{
-    width: 108px;
-    min-width: 108px;
-    max-width: 108px;
-}
-
-td#modify{
-    width: 108px;
-    min-width: 108px;
-    max-width: 108px;
+.modal-xl {
+    width: 1230px;
 }

@@ -31,7 +31,7 @@ var db = mongojs('firearmsList', ['firearmsList']);
 var bodyParser = require('body-parser');
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
-
+app.use(express.static(__dirname + '/public/images'));
 
 /**
  * Get All firearms
@@ -84,8 +84,8 @@ app.put('/firearmsList/:id', function (req, res) {
     var id = req.params.id;
     console.log(req.body.modelName);
     db.firearmsList.findAndModify({query: {_id: mongojs.ObjectId(id)},
-        update: {$set: {modelName: req.body.modelName, country: req.body.country,
-                caliber: req.body.caliber, actionType: req.body.actionType,
+        update: {$set: {modelName: req.body.modelName, modelImage: req.body.modelImage, 
+                country: req.body.country, caliber: req.body.caliber, actionType: req.body.actionType,
                 ammunition: req.body.ammunition, velocity: req.body.velocity,
                 rateOfFire: req.body.rateOfFire, range: req.body.range,
                 startService: req.body.startService, endService: req.body.endService,

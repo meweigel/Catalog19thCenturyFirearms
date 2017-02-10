@@ -21,18 +21,22 @@
  * 
  * The AngularJS Controller
  */
-var app = angular.module('firearmsListApp', []);
-app.controller('firearmFactsController', function ($scope, $http) {
+
+var app = angular.module('firearmsListApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
+app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
     $scope.firearmsList = [];
     $scope.sortType = 'modelName'; // set the default sort type
     $scope.sortReverse = false;  // set the default sort order
-    $scope.searchFirearms = '';     // set the default search/filter term
-    $scope.firearm = {modelName: "", country: "", caliber: "", actionType: "",
-        ammunition: "", velocity: 0, rateOfFire: 0, range: 0, startService: 0,
-        endService: 0, manufacturer: "", numProduced: "", description: ""};
+    $scope.searchFirearms = '';  // set the default search/filter term
+    $scope.popUpWindow = undefined;
+
+    $scope.firearm = {modelName: undefined, modelImage: undefined, country: undefined, caliber: undefined, actionType: undefined,
+        ammunition: undefined, velocity: undefined, rateOfFire: undefined, range: undefined, startService: undefined,
+        endService: undefined, manufacturer: undefined, numProduced: undefined, description: undefined};
 
     var chngFlags = {
         modelName: false,
+        modelImage: false,
         country: false,
         caliber: false,
         actionType: false,
@@ -80,6 +84,9 @@ app.controller('firearmFactsController', function ($scope, $http) {
         switch (data) {
             case $scope.firearm.modelName:
                 chngFlags.modelName = true;
+                break;
+            case $scope.firearm.modelImage:
+                chngFlags.modelImage = true;
                 break;
             case $scope.firearm.country:
                 chngFlags.country = true;
@@ -132,7 +139,7 @@ app.controller('firearmFactsController', function ($scope, $http) {
         if (index === -1) {
             var dataFlag = doFieldsHaveData();
             // Make sure there are no empty fields
-            if (dataFlag.modelName && dataFlag.country && dataFlag.caliber &&
+            if (dataFlag.modelName && dataFlag.modelImage && dataFlag.country && dataFlag.caliber &&
                     dataFlag.actionType && dataFlag.ammunition && dataFlag.velocity &&
                     dataFlag.rateOfFire && dataFlag.range && dataFlag.startService &&
                     dataFlag.endService && dataFlag.manufacturer && dataFlag.numProduced &&
@@ -167,7 +174,7 @@ app.controller('firearmFactsController', function ($scope, $http) {
     };
 
     $scope.update = function (id) {
-        if (chngFlags.modelName || chngFlags.country || chngFlags.caliber ||
+        if (chngFlags.modelName || chngFlags.modelImage || chngFlags.country || chngFlags.caliber ||
                 chngFlags.actionType || chngFlags.ammunition || chngFlags.velocity ||
                 chngFlags.rateOfFire || chngFlags.range || chngFlags.startService ||
                 chngFlags.endService || chngFlags.manufacturer || chngFlags.numProduced ||
@@ -175,7 +182,7 @@ app.controller('firearmFactsController', function ($scope, $http) {
 
             var dataFlag = doFieldsHaveData();
             // Make sure there are no empty fields
-            if (dataFlag.modelName && dataFlag.country && dataFlag.caliber &&
+            if (dataFlag.modelName && dataFlag.modelImage && dataFlag.country && dataFlag.caliber &&
                     dataFlag.actionType && dataFlag.ammunition && dataFlag.velocity &&
                     dataFlag.rateOfFire && dataFlag.range && dataFlag.startService &&
                     dataFlag.endService && dataFlag.manufacturer && dataFlag.numProduced &&
@@ -197,26 +204,57 @@ app.controller('firearmFactsController', function ($scope, $http) {
 
     $scope.deselect = function () {
         if ($scope.firearm !== null) {
-            $scope.firearm._id = "";
-            $scope.firearm.modelName = "";
-            $scope.firearm.country = "";
-            $scope.firearm.caliber = "";
-            $scope.firearm.actionType = "";
-            $scope.firearm.ammunition = "";
-            $scope.firearm.velocity = 0;
-            $scope.firearm.rateOfFire = 0;
-            $scope.firearm.range = 0;
-            $scope.firearm.startService = 0;
-            $scope.firearm.endService = 0;
-            $scope.firearm.manufacturer = "";
-            $scope.firearm.numProduced = "";
-            $scope.firearm.description = "";
+            $scope.firearm._id = undefined;
+            $scope.firearm.modelName = undefined;
+            $scope.firearm.modelImage = undefined;
+            $scope.firearm.country = undefined;
+            $scope.firearm.caliber = undefined;
+            $scope.firearm.actionType = undefined;
+            $scope.firearm.ammunition = undefined;
+            $scope.firearm.velocity = undefined;
+            $scope.firearm.rateOfFire = undefined;
+            $scope.firearm.range = undefined;
+            $scope.firearm.startService = undefined;
+            $scope.firearm.endService = undefined;
+            $scope.firearm.manufacturer = undefined;
+            $scope.firearm.numProduced = undefined;
+            $scope.firearm.description = undefined;
         }
     };
+
+
+    $scope.popUp = function (url, title) {
+        var img = new Image();
+        img.src = url;
+        var w = img.width;
+        var h = img.height;
+
+        if ($scope.popUpWindow !== undefined && !$scope.popUpWindow.closed) {
+            $scope.popUpWindow.close();
+            $scope.popUpWindow = undefined;
+        }
+
+        if (w == 0) {
+            w = 1200;
+        }
+
+        if (h == 0) {
+            h = 296;
+        }
+
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
+        $scope.popUpWindow = window.open(url, title, 'alwaysRaised=yes, z-lock=no, toolbar=no, ' +
+                'location=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
+                w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+    }
+
 
     function doFieldsHaveData() {
         var dataFlag = {
             modelName: ($scope.firearm.modelName !== undefined),
+            modelImage: ($scope.firearm.modelImage !== undefined),
             country: ($scope.firearm.country !== undefined),
             caliber: ($scope.firearm.caliber !== undefined),
             actionType: ($scope.firearm.actionType !== undefined),
@@ -236,6 +274,7 @@ app.controller('firearmFactsController', function ($scope, $http) {
 
     function resetChangeFlags() {
         chngFlags.modelName = false;
+        chngFlags.modelImage = false;
         chngFlags.country = false;
         chngFlags.caliber = false;
         chngFlags.actionType = false;
@@ -260,6 +299,8 @@ app.controller('firearmFactsController', function ($scope, $http) {
     function showEmptyFieldAlert(dataFlag) {
         if (!dataFlag.modelName) {
             alert("Please enter the model name.");
+        } else if (!dataFlag.modelImage) {
+            alert("Please enter the model image.");
         } else if (!dataFlag.country) {
             alert("Please enter the country.");
         } else if (!dataFlag.caliber) {
@@ -286,4 +327,53 @@ app.controller('firearmFactsController', function ($scope, $http) {
             alert("Please enter the description.");
         }
     }
+
+    var $ctrl = this;
+    $ctrl.animationsEnabled = true;
+
+    $ctrl.open = function (firearm) {
+        var modalInstance = $uibModal.open({
+            animation: $ctrl.animationsEnabled,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+            controllerAs: '$ctrl',
+            size: 'xl',
+            resolve: {
+                param: function () {
+                    return {'data': firearm};
+                }
+            }
+        });
+    };
+
+    $ctrl.toggleAnimation = function () {
+        $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
+    };
+});
+
+// Please note that $uibModalInstance represents a modal window (instance) dependency.
+// It is not the same as the $uibModal service used above.
+angular.module('firearmsListApp').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, param) {
+    var $ctrl = this;
+    $scope.data = param.data;
+    $scope.imgStyle = getImageStyle(param.data.modelImage);
+
+
+    function getImageStyle(imageNode) {
+        var img = new Image();
+        img.src = imageNode;
+        var width = img.width + "px";
+
+        var imgStyle = {
+            "width": "1200px"
+        }
+
+        return imgStyle;
+    }
+
+    $ctrl.close = function () {
+        $uibModalInstance.dismiss();
+    };
 });

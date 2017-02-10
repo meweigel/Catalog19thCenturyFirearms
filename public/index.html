@@ -27,6 +27,9 @@ Author: Michael E. Weigel
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="style/firearmFactsCatalog.css">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+        <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
         <script src="controllers/firearmFactsController.js"></script>
     </head>
     <body>
@@ -37,7 +40,7 @@ Author: Michael E. Weigel
         </noscript>
         <div id="main-content" >
             <h1>Catalog of 19th Century Firearms </h1>
-            <div ng-app="firearmsListApp" ng-controller="firearmFactsController">
+            <div ng-app="firearmsListApp" ng-controller="firearmFactsController as $ctrl" class="modal-demo">
                 <form id="filterForm">
                     <div class="form-group">
                         <div class="input-group">
@@ -46,6 +49,17 @@ Author: Michael E. Weigel
                         </div>      
                     </div>
                 </form>
+                <script type="text/ng-template" id="myModalContent.html">
+                        <div class="modal-header">
+                           <h3 class="modal-title" id="modal-title" style="text-align: center;">{{data.modelName}}</h3>
+                        </div>
+                        <div class="modal-body" id="modal-body">
+                           <img ng-src="{{data.modelImage}}" alt="View"> 
+                        </div>
+                        <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" ng-click="$ctrl.close()">Close</button>
+                        </div>
+                </script>
                 <table class="table">
                     <thead>
                         <tr>
@@ -54,6 +68,13 @@ Author: Michael E. Weigel
                                     Model Name
                                     <span ng-show="sortType == 'modelName' && !sortReverse" class="fa fa-caret-down"></span>
                                     <span ng-show="sortType == 'modelName' && sortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th id="modelImage">
+                                <a href="#" ng-click="sortType = 'modelImage'; sortReverse = !sortReverse">
+                                    Model Image
+                                    <span ng-show="sortType == 'modelImage' && !sortReverse" class="fa fa-caret-down"></span>
+                                    <span ng-show="sortType == 'modelImage' && sortReverse" class="fa fa-caret-up"></span>
                                 </a>
                             </th>
                             <th id="country">
@@ -93,7 +114,7 @@ Author: Michael E. Weigel
                             </th>
                             <th id="rof">
                                 <a href="#" ng-click="sortType = 'rof'; sortReverse = !sortReverse">
-                                    Rate of Fire
+                                    Rate of Fire (rpm)
                                     <span ng-show="sortType == 'rof' && !sortReverse" class="fa fa-caret-down"></span>
                                     <span ng-show="sortType == 'rof' && sortReverse" class="fa fa-caret-up"></span>
                                 </a>
@@ -141,16 +162,16 @@ Author: Michael E. Weigel
                                 </a>
                             </th>
                             <th id="action" style="color:background">
-                                Action<br><br>
-                            </th>
-                            <th id="modify" style="color:background">
-                                Modify<br>
+                                Action<br>
                                 <button id="clear" class="btn btn-info" ng-click="deselect()">Clear</button>
                             </th>
                         </tr>
                         <tr id="input">
                             <th id="modelName">
                                 <input class="form-control" type="text" ng-model="firearm.modelName" ng-change="onChange(firearm.modelName)" required>
+                            </th>
+                            <th id="modelImage">
+                                <input class="form-control" type="text" ng-model="firearm.modelImage" ng-change="onChange(firearm.modelImage)" required>
                             </th>
                             <th id="country">
                                 <input class="form-control" type="text" ng-model="firearm.country" ng-change="onChange(firearm.country)" required>
@@ -188,27 +209,31 @@ Author: Michael E. Weigel
                             <th id="description">
                                 <input class="form-control" type="text" ng-model="firearm.description" ng-change="onChange(firearm.description)" required>
                             </th>
-                            <th id="action"><button class="btn btn-primary" ng-click="addFirearm()">Add</button></th>
-                            <th id="modify"><button class="btn btn-info" ng-click="update(firearm._id)">Update</button></th>
+                            <th id="action">
+                                <button class="btn btn-primary" ng-click="addFirearm()">Add</button>
+                                <button class="btn btn-info" ng-click="update(firearm._id)">Update</button>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="firearm in firearmsList| orderBy:sortType:sortReverse | filter:searchFirearms">
-                            <td id="modelName">{{firearm.modelName}}</td>
-                            <td id="country">{{firearm.country}}</td>
-                            <td id="caliber">{{firearm.caliber}}</td>
-                            <td id="actionType">{{firearm.actionType}}</td>
-                            <td id="ammunition">{{firearm.ammunition}}</td>
-                            <td id="velocity">{{firearm.velocity}}</td>
-                            <td id="rof">{{firearm.rateOfFire}}</td>
-                            <td id="range">{{firearm.range}}</td>
-                            <td id="startService">{{firearm.startService}}</td>
-                            <td id="endService">{{firearm.endService}}</td>
-                            <td id="manufacturer">{{firearm.manufacturer}}</td>
-                            <td id="numproduced">{{firearm.numProduced}}</td>
-                            <td id="description">{{firearm.description}}</td> 
+                            <td id="modelName" ng-dblclick="edit(firearm._id)">{{firearm.modelName}}</td>
+                            <td id="modelImage">
+                                <img ng-src="{{firearm.modelImage}}" alt="View" style="width:80px;" ng-click="$ctrl.open(firearm)">                         
+                            </td>
+                            <td id="country" ng-dblclick="edit(firearm._id)">{{firearm.country}}</td>
+                            <td id="caliber" ng-dblclick="edit(firearm._id)">{{firearm.caliber}}</td>
+                            <td id="actionType" ng-dblclick="edit(firearm._id)">{{firearm.actionType}}</td>
+                            <td id="ammunition" ng-dblclick="edit(firearm._id)">{{firearm.ammunition}}</td>
+                            <td id="velocity" ng-dblclick="edit(firearm._id)">{{firearm.velocity}}</td>
+                            <td id="rof" ng-dblclick="edit(firearm._id)">{{firearm.rateOfFire}}</td>
+                            <td id="range" ng-dblclick="edit(firearm._id)">{{firearm.range}}</td>
+                            <td id="startService" ng-dblclick="edit(firearm._id)">{{firearm.startService}}</td>
+                            <td id="endService" ng-dblclick="edit(firearm._id)">{{firearm.endService}}</td>
+                            <td id="manufacturer" ng-dblclick="edit(firearm._id)">{{firearm.manufacturer}}</td>
+                            <td id="numproduced" ng-dblclick="edit(firearm._id)">{{firearm.numProduced}}</td>
+                            <td id="description" ng-dblclick="edit(firearm._id)">{{firearm.description}}</td> 
                             <td id="action"><button class="btn btn-danger" ng-click="remove(firearm._id)">Remove</button></td>
-                            <td id="modify"><button class="btn btn-warning" ng-click="edit(firearm._id)">Edit</button></td>
                         </tr>
                     </tbody>
                 </table>	 

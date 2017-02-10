@@ -82,13 +82,28 @@ Enter localhost:3000 in address bar (also location bar or URL bar)
 
 The Catalog19thCenturyFirearms web application should start.
 
-Use of the Web Application is self intuitive.
+
+Usage
+-----
+* Double click on a row in order to edit it. The data will be loaded into the data entry field.
+* Click the Update button to update the document from the data entry fields.
+* Click the Clear button to clear the data entry fields.
+* Click the Add button to add the data entered in the data entry fields.
+* Click the Remove buttons to remove the document from MongoDB.
 
 
 
 TODO
 -----
 
-1) Add image links for firearms
+* Further simplify data entry
+* Add popup warning for clicking a Remove button.
+
+
+Data
+----
+No guarantee of accuracy of the firearms data is made or implied in anyway.
+I am not responsible for your use of the firearms data in any form.
+In some cases estimates have been made for firearms data and will be update when possible.
 
 
