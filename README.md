@@ -86,24 +86,24 @@ The Catalog19thCenturyFirearms web application should start.
 Usage
 -----
 * Double click on a row in order to edit it. The data will be loaded into the data entry field.
-* Click the Update button to update the document from the data entry fields.
+* Right mouse click on a row, then select 'Edit' to edit it. The data will be loaded into the data entry field.
+* Click the Update button to update the changed data in the data entry fields.
 * Click the Clear button to clear the data entry fields.
-* Click the Add button to add the data entered in the data entry fields.
-* Click the Remove buttons to remove the document from MongoDB.
+* Click the Add button in order to show the data entry fields, then add the data entered in the data entry fields and
+  click the Add button again to enter the data in Mongodb.
+* Right mouse click on a row, then select 'Remove' to remove the document from MongoDB.
 
 
 
 TODO
 -----
-
-* Further simplify data entry
-* Add popup warning for clicking a Remove button.
+Save data to a pdf file.
 
 
 Data
 ----
 No guarantee of accuracy of the firearms data is made or implied in anyway.
 I am not responsible for your use of the firearms data in any form.
-In some cases estimates have been made for firearms data and will be update when possible.
+In some cases estimates have been made for firearms data and will be updated when possible.
 
 
