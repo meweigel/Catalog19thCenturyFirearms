@@ -22,16 +22,17 @@
  * The AngularJS Controller
  */
 
-var app = angular.module('firearmsListApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
+var app = angular.module('firearmsListApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap', 'bp-ngContextMenu']);
 app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
     $scope.firearmsList = [];
     $scope.sortType = 'modelName'; // set the default sort type
     $scope.sortReverse = false;  // set the default sort order
     $scope.searchFirearms = '';  // set the default search/filter term
-    $scope.popUpWindow = undefined;
+    $scope.hideInput = true;
+    $scope.selectedId = undefined;
 
     $scope.firearm = {modelName: undefined, modelImage: undefined, country: undefined, caliber: undefined, actionType: undefined,
-        ammunition: undefined, velocity: undefined, rateOfFire: undefined, range: undefined, startService: undefined,
+        ammunition: undefined, capacity: undefined, velocity: undefined, rateOfFire: undefined, range: undefined, startService: undefined,
         endService: undefined, manufacturer: undefined, numProduced: undefined, description: undefined};
 
     var chngFlags = {
@@ -41,6 +42,7 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
         caliber: false,
         actionType: false,
         ammunition: false,
+        capacity: false,
         velocity: false,
         rateOfFire: false,
         range: false,
@@ -52,7 +54,7 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
     };
 
     // Refresh the entire firearm list
-    var refresh = function () {
+    function refresh() {
         $http.get('/firearmsList').then(function (response) {
             console.log("I got the data I requested");
             $scope.firearmsList = response.data;
@@ -60,10 +62,11 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
         }, function (response) {
             console.error(response.data);
         });
-    };
+    }
+
 
     // Refresh a single firearm item
-    var refreshFirearm = function (id) {
+    function refreshFirearm(id) {
         $http.get('/firearmsList/' + id).then(function (response) {
             console.log("I got the firearm data for: " + response.data.modelName);
             var index = $scope.firearmsList.map(function (x) {
@@ -74,180 +77,6 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
         }, function (response) {
             console.error(response.data);
         });
-    };
-
-    // Get the data for when the page is loaded
-    refresh();
-
-    // Montitor firearm field Chngs
-    $scope.onChange = function (data) {
-        switch (data) {
-            case $scope.firearm.modelName:
-                chngFlags.modelName = true;
-                break;
-            case $scope.firearm.modelImage:
-                chngFlags.modelImage = true;
-                break;
-            case $scope.firearm.country:
-                chngFlags.country = true;
-                break;
-            case $scope.firearm.caliber:
-                chngFlags.caliber = true;
-                break;
-            case $scope.firearm.actionType:
-                chngFlags.actionType = true;
-                break;
-            case $scope.firearm.ammunition:
-                chngFlags.ammunition = true;
-                break;
-            case $scope.firearm.velocity:
-                chngFlags.velocity = true;
-                break;
-            case $scope.firearm.rateOfFire:
-                chngFlags.rateOfFire = true;
-                break;
-            case $scope.firearm.range:
-                chngFlags.range = true;
-                break;
-            case $scope.firearm.startService:
-                chngFlags.startService = true;
-                break;
-            case $scope.firearm.endService:
-                chngFlags.endService = true;
-                break;
-            case $scope.firearm.manufacturer:
-                chngFlags.manufacturer = true;
-                break;
-            case $scope.firearm.numProduced:
-                chngFlags.numProduced = true;
-                break;
-            case $scope.firearm.description:
-                chngFlags.description = true;
-                break;
-        }
-    };
-
-    // Add a new firearm type
-    $scope.addFirearm = function () {
-        var index = $scope.firearmsList.map(function (x) {
-            return x._id;
-        }).indexOf($scope.firearm._id);
-
-        console.log("index = " + index);
-
-        // Only add firearm if it doesn't already exist
-        if (index === -1) {
-            var dataFlag = doFieldsHaveData();
-            // Make sure there are no empty fields
-            if (dataFlag.modelName && dataFlag.modelImage && dataFlag.country && dataFlag.caliber &&
-                    dataFlag.actionType && dataFlag.ammunition && dataFlag.velocity &&
-                    dataFlag.rateOfFire && dataFlag.range && dataFlag.startService &&
-                    dataFlag.endService && dataFlag.manufacturer && dataFlag.numProduced &&
-                    dataFlag.description) {
-                if (isYearValid($scope.firearm.startService)) {
-                    console.log($scope.firearm);
-                    $http.post('/firearmsList', $scope.firearm).then(function (response) {
-                        console.log(response.data);
-                        refresh();
-                    });
-                } else {
-                    alert("19 Century Format: 18XX");
-                }
-            } else {
-                showEmptyFieldAlert(dataFlag);
-            }
-        }
-    };
-
-    $scope.remove = function (id) {
-        console.log(id);
-        $http.delete('/firearmsList/' + id).then(function (repsonse) {
-            refresh();
-        });
-    };
-
-    $scope.edit = function (id) {
-        console.log(id);
-        $http.get('/firearmsList/' + id).then(function (response) {
-            $scope.firearm = response.data;
-        });
-    };
-
-    $scope.update = function (id) {
-        if (chngFlags.modelName || chngFlags.modelImage || chngFlags.country || chngFlags.caliber ||
-                chngFlags.actionType || chngFlags.ammunition || chngFlags.velocity ||
-                chngFlags.rateOfFire || chngFlags.range || chngFlags.startService ||
-                chngFlags.endService || chngFlags.manufacturer || chngFlags.numProduced ||
-                chngFlags.description) {
-
-            var dataFlag = doFieldsHaveData();
-            // Make sure there are no empty fields
-            if (dataFlag.modelName && dataFlag.modelImage && dataFlag.country && dataFlag.caliber &&
-                    dataFlag.actionType && dataFlag.ammunition && dataFlag.velocity &&
-                    dataFlag.rateOfFire && dataFlag.range && dataFlag.startService &&
-                    dataFlag.endService && dataFlag.manufacturer && dataFlag.numProduced &&
-                    dataFlag.description) {
-                if (isYearValid($scope.firearm.startService)) {
-                    console.log($scope.firearm._id);
-                    $http.put('/firearmsList/' + id, $scope.firearm).then(function (repsonse) {
-                        refreshFirearm(repsonse.data._id);
-                        resetChangeFlags();
-                    });
-                } else {
-                    alert("19 Century Format: 18XX");
-                }
-            } else {
-                showEmptyFieldAlert(dataFlag);
-            }
-        }
-    };
-
-    $scope.deselect = function () {
-        if ($scope.firearm !== null) {
-            $scope.firearm._id = undefined;
-            $scope.firearm.modelName = undefined;
-            $scope.firearm.modelImage = undefined;
-            $scope.firearm.country = undefined;
-            $scope.firearm.caliber = undefined;
-            $scope.firearm.actionType = undefined;
-            $scope.firearm.ammunition = undefined;
-            $scope.firearm.velocity = undefined;
-            $scope.firearm.rateOfFire = undefined;
-            $scope.firearm.range = undefined;
-            $scope.firearm.startService = undefined;
-            $scope.firearm.endService = undefined;
-            $scope.firearm.manufacturer = undefined;
-            $scope.firearm.numProduced = undefined;
-            $scope.firearm.description = undefined;
-        }
-    };
-
-
-    $scope.popUp = function (url, title) {
-        var img = new Image();
-        img.src = url;
-        var w = img.width;
-        var h = img.height;
-
-        if ($scope.popUpWindow !== undefined && !$scope.popUpWindow.closed) {
-            $scope.popUpWindow.close();
-            $scope.popUpWindow = undefined;
-        }
-
-        if (w == 0) {
-            w = 1200;
-        }
-
-        if (h == 0) {
-            h = 296;
-        }
-
-        var left = (screen.width / 2) - (w / 2);
-        var top = (screen.height / 2) - (h / 2);
-        $scope.popUpWindow = window.open(url, title, 'alwaysRaised=yes, z-lock=no, toolbar=no, ' +
-                'location=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' +
-                w + ', height=' + h + ', top=' + top + ', left=' + left);
-
     }
 
 
@@ -259,6 +88,7 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
             caliber: ($scope.firearm.caliber !== undefined),
             actionType: ($scope.firearm.actionType !== undefined),
             ammunition: ($scope.firearm.ammunition !== undefined),
+            capacity: ($scope.firearm.capacity !== undefined),
             velocity: ($scope.firearm.velocity !== undefined),
             rateOfFire: ($scope.firearm.rateOfFire !== undefined),
             range: ($scope.firearm.range !== undefined),
@@ -279,6 +109,7 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
         chngFlags.caliber = false;
         chngFlags.actionType = false;
         chngFlags.ammunition = false;
+        chngFlags.capacity = false;
         chngFlags.velocity = false;
         chngFlags.rateOfFire = false;
         chngFlags.range = false;
@@ -309,6 +140,8 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
             alert("Please enter the action type.");
         } else if (!dataFlag.ammunition) {
             alert("Please enter the ammunition.");
+        } else if (!dataFlag.capacity) {
+            alert("Please enter the load capacity.");
         } else if (!dataFlag.velocity) {
             alert("Please enter the velocity.");
         } else if (!dataFlag.rateOfFire) {
@@ -327,6 +160,172 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
             alert("Please enter the description.");
         }
     }
+
+    // Get the data for when the page is loaded
+    refresh();
+
+    // Montitor firearm field Chngs
+    $scope.onChange = function (data) {
+        switch (data) {
+            case $scope.firearm.modelName:
+                chngFlags.modelName = true;
+                break;
+            case $scope.firearm.modelImage:
+                chngFlags.modelImage = true;
+                break;
+            case $scope.firearm.country:
+                chngFlags.country = true;
+                break;
+            case $scope.firearm.caliber:
+                chngFlags.caliber = true;
+                break;
+            case $scope.firearm.actionType:
+                chngFlags.actionType = true;
+                break;
+            case $scope.firearm.ammunition:
+                chngFlags.ammunition = true;
+                break;
+            case $scope.firearm.capacity:
+                chngFlags.capacity = true;
+                break;
+            case $scope.firearm.velocity:
+                chngFlags.velocity = true;
+                break;
+            case $scope.firearm.rateOfFire:
+                chngFlags.rateOfFire = true;
+                break;
+            case $scope.firearm.range:
+                chngFlags.range = true;
+                break;
+            case $scope.firearm.startService:
+                chngFlags.startService = true;
+                break;
+            case $scope.firearm.endService:
+                chngFlags.endService = true;
+                break;
+            case $scope.firearm.manufacturer:
+                chngFlags.manufacturer = true;
+                break;
+            case $scope.firearm.numProduced:
+                chngFlags.numProduced = true;
+                break;
+            case $scope.firearm.description:
+                chngFlags.description = true;
+                break;
+        }
+    };
+
+    // Add a new firearm type
+    $scope.addFirearm = function () {
+
+        var index = $scope.firearmsList.map(function (x) {
+            return x._id;
+        }).indexOf($scope.firearm._id);
+
+        console.log("index = " + index);
+
+        // Only add firearm if it doesn't already exist
+        if (index === -1) {
+            var dataFlag = doFieldsHaveData();
+            // Make sure there are no empty fields
+            if (dataFlag.modelName && dataFlag.modelImage && dataFlag.country && dataFlag.caliber &&
+                    dataFlag.actionType && dataFlag.ammunition && dataFlag.capacity && dataFlag.velocity &&
+                    dataFlag.rateOfFire && dataFlag.range && dataFlag.startService &&
+                    dataFlag.endService && dataFlag.manufacturer && dataFlag.numProduced &&
+                    dataFlag.description) {
+                if (isYearValid($scope.firearm.startService)) {
+                    console.log($scope.firearm);
+                    $http.post('/firearmsList', $scope.firearm).then(function (response) {
+                        console.log(response.data);
+                        refresh();
+                    });
+                } else {
+                    alert("19 Century Format: 18XX");
+                }
+            } else {
+                if ($scope.hideInput === false) {
+                    showEmptyFieldAlert(dataFlag);
+                } else {
+                    $scope.hideInput = false;
+                }
+            }
+        }
+    };
+
+    $scope.remove = function (id) {
+        console.log(id);
+        $http.delete('/firearmsList/' + id).then(function (repsonse) {
+            refresh();
+        });
+    };
+
+    $scope.edit = function (id) {
+        console.log(id);
+        $scope.hideInput = false;
+        $http.get('/firearmsList/' + id).then(function (response) {
+            $scope.firearm = response.data;
+        });
+    };
+
+    $scope.update = function (id) {
+        if (chngFlags.modelName || chngFlags.modelImage || chngFlags.country || chngFlags.caliber ||
+                chngFlags.actionType || chngFlags.ammunition || chngFlags.capacity || chngFlags.velocity ||
+                chngFlags.rateOfFire || chngFlags.range || chngFlags.startService ||
+                chngFlags.endService || chngFlags.manufacturer || chngFlags.numProduced ||
+                chngFlags.description) {
+
+            var dataFlag = doFieldsHaveData();
+            // Make sure there are no empty fields
+            if (dataFlag.modelName && dataFlag.modelImage && dataFlag.country && dataFlag.caliber &&
+                    dataFlag.actionType && dataFlag.ammunition && dataFlag.capacity && dataFlag.velocity &&
+                    dataFlag.rateOfFire && dataFlag.range && dataFlag.startService &&
+                    dataFlag.endService && dataFlag.manufacturer && dataFlag.numProduced &&
+                    dataFlag.description) {
+                if (isYearValid($scope.firearm.startService)) {
+                    console.log($scope.firearm._id);
+                    $http.put('/firearmsList/' + id, $scope.firearm).then(function (repsonse) {
+                        refreshFirearm(repsonse.data._id);
+                        resetChangeFlags();
+                    });
+                } else {
+                    alert("19 Century Format: 18XX");
+                }
+            } else {
+                showEmptyFieldAlert(dataFlag);
+            }
+        }
+    };
+
+    $scope.deselect = function () {
+        $scope.hideInput = true;
+        if ($scope.firearm !== null) {
+            $scope.firearm._id = undefined;
+            $scope.firearm.modelName = undefined;
+            $scope.firearm.modelImage = undefined;
+            $scope.firearm.country = undefined;
+            $scope.firearm.caliber = undefined;
+            $scope.firearm.actionType = undefined;
+            $scope.firearm.ammunition = undefined;
+            $scope.firearm.capacity = undefined;
+            $scope.firearm.velocity = undefined;
+            $scope.firearm.rateOfFire = undefined;
+            $scope.firearm.range = undefined;
+            $scope.firearm.startService = undefined;
+            $scope.firearm.endService = undefined;
+            $scope.firearm.manufacturer = undefined;
+            $scope.firearm.numProduced = undefined;
+            $scope.firearm.description = undefined;
+        }
+    };
+
+    $scope.setSelected = function (firearm) {
+        $scope.selectedId = firearm._id;
+        console.log('setSelected was clicked');
+    };
+
+    $scope.properties = function () {
+        console.log('properties was clicked');
+    };
 
     var $ctrl = this;
     $ctrl.animationsEnabled = true;
@@ -350,6 +349,18 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
 
     $ctrl.toggleAnimation = function () {
         $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
+    };
+});
+
+app.directive('ngRightclick', function ($parse) {
+    return function (scope, element, attrs) {
+        var fn = $parse(attrs.ngRightclick);
+        element.bind('contextmenu', function (event) {
+            scope.$apply(function () {
+                event.preventDefault();
+                fn(scope, {$event: event});
+            });
+        });
     };
 });
 
@@ -377,3 +388,4 @@ angular.module('firearmsListApp').controller('ModalInstanceCtrl', function ($sco
         $uibModalInstance.dismiss();
     };
 });
+

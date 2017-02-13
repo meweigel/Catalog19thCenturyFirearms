@@ -50,33 +50,6 @@ h1{
     margin:  1px; 
 }
 
-button.btn{
-    padding: 6px 2px 2px 2px;
-    margin: 5px; 
-    text-align: center;
-}
-
-button.btn-primary {
-    padding: 1px;
-    margin: 0px 0px 3px 0px; 
-    width: 55px;
-    font-size: 13px
-}
-
-button.btn-info, button.btn-danger {
-    padding: 1px;
-    margin: 0px 0px -6px 0px; 
-    width: 55px;
-    font-size: 13px
-}
-
-button#clear{
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px -6px 0px; 
-    width: 45px;
-    font-size: 13px
-}
-
 table {
     padding: 1px;
     margin:  1px; 
@@ -86,7 +59,7 @@ table {
 table thead tr {
     display: block; 
     border-style: solid;
-    border-width: 2px 0px 0px 1px;
+    border-width: 1px 0px 1px 1px;
     border-color: black;
     width: 1818px;
 }
@@ -135,11 +108,26 @@ tr#input > th{
     background-color: lightgray;
 }
 
-form#filterForm{
+button.btn{
+    margin: 5px 5px 0px 5px;
+    padding: 3px;
+    width: 55px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+}
+
+div.input-group-addon, input#search{
+    margin: 2px;
+    padding: 3px;
+    height: 30px;
+}
+
+form#controlForm{
     float: right;
-    width: 270px;
-    margin: 0x 25px 0px 0px;
-    padding: 1px;
+    width: 460px;
+    height: 40px;
+    margin: 5px 25px 9px 0px;
 }
 
 /*
@@ -173,6 +161,12 @@ th#ammunition, td#ammunition{
     width: 142px;
     min-width: 142px;
     max-width: 142px;
+}
+
+th#capacity, td#capacity{
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
 }
 
 th#velocity, td#velocity{
@@ -221,12 +215,6 @@ th#description, td#description{
     width: 250px;
     min-width: 250px;
     max-width: 250px;
-}
-
-th#action, td#action{
-    width: 76px;
-    min-width: 76px;
-    max-width: 76px;
 }
 
 .modal-xl {

@@ -86,7 +86,7 @@ app.put('/firearmsList/:id', function (req, res) {
     db.firearmsList.findAndModify({query: {_id: mongojs.ObjectId(id)},
         update: {$set: {modelName: req.body.modelName, modelImage: req.body.modelImage, 
                 country: req.body.country, caliber: req.body.caliber, actionType: req.body.actionType,
-                ammunition: req.body.ammunition, velocity: req.body.velocity,
+                ammunition: req.body.ammunition, capacity: req.body.capacity, velocity: req.body.velocity,
                 rateOfFire: req.body.rateOfFire, range: req.body.range,
                 startService: req.body.startService, endService: req.body.endService,
                 manufacturer: req.body.manufacturer, numProduced: req.body.numProduced,
