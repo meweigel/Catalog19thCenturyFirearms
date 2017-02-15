@@ -92,12 +92,7 @@ Usage
 * Click the Add button in order to show the data entry fields, then add the data entered in the data entry fields and
   click the Add button again to enter the data in Mongodb.
 * Right mouse click on a row, then select 'Remove' to remove the document from MongoDB.
-
-
-
-TODO
------
-Save data to a pdf file.
+* Click the Save button to save the catalog as a pdf file in your Downloads folder.
 
 
 Data
