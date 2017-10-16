@@ -233,7 +233,7 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
             }
         });
         
-        console.log("images.length = " + images.length);
+        //console.log("images.length = " + images.length);
         pdf.save('FireArms19thCentury.pdf');
     };
 
