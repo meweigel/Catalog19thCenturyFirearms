@@ -89,10 +89,10 @@ Usage
 * Right mouse click on a row, then select 'Edit' to edit it. The data will be loaded into the data entry field.
 * Click the Update button to update the changed data in the data entry fields.
 * Click the Clear button to clear the data entry fields.
-* Click the Add button in order to show the data entry fields, then add the data entered in the data entry fields and
-  click the Add button again to enter the data in Mongodb.
+* Click the New button in order to show the data entry fields, then add the data entered in the data entry fields and
+  click the Add button to enter the data in Mongodb.
 * Right mouse click on a row, then select 'Remove' to remove the document from MongoDB.
-* Click the Save button to save the catalog as a pdf file in your Downloads folder.
+* Click the PDF button to save the catalog as a pdf file in your Downloads folder.
 
 
 Data
