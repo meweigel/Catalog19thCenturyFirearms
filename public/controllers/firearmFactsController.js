@@ -177,7 +177,8 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
             pdf.setFontStyle('normal');
             pdf.text("Catalog of 19th Century Firearms", 1000, 25);
         };
-
+        
+        
         pdf.autoTable(res.columns, res.data, {
             bodyStyles: {vertical: 30},
             createdHeaderCell: header,
@@ -187,7 +188,7 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
             },
             drawHeaderCell: function (cell, data) {
                 pdf.rect(cell.x, cell.y, cell.width, cell.height, cell.styles.fillStyle);
-                pdf.setFontSize(12);
+                pdf.setFontSize(13);
                 pdf.setTextColor(0, 51, 204);
                 pdf.setFillColor(255, 204, 153);
                 pdf.setFontStyle('normal');
@@ -210,17 +211,22 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
                     });
                 }
             },
-            addPageContent: function () {
+            addPageContent: function () {                
                 for (var i = 0; i < images.length; i++) {
-                    pdf.addImage(images[i].elem, 'jpg', images[i].x, images[i].y);
+                    if(!images[i].usado){
+                        pdf.addImage(images[i].elem, 'jpg', images[i].x, images[i].y);
+                        images[i].usado = true;
+                    }
                 }
             },
             margin: {
-                top: 60
+                top: 60,
+             bottom: 20
             },
             styles: {
+                lineWidth: 1.0,
                 overflow: 'linebreak',
-                fontSize: 12,
+                fontSize: 13,
                 tableWidth: 'auto',
                 columnWidth: 'auto',
                 halign: "center"
@@ -233,10 +239,8 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
             }
         });
         
-        //console.log("images.length = " + images.length);
         pdf.save('FireArms19thCentury.pdf');
     };
-
 
     // Montitor firearm field Chngs
     $scope.onChange = function (data) {
