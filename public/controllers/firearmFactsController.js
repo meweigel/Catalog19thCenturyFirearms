@@ -30,6 +30,7 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
     $scope.searchFirearms = '';  // set the default search/filter term
     $scope.hideInput = true;
     $scope.selectedId = undefined;
+    $scope.create= 'New';
 
     $scope.firearm = {modelName: undefined, modelImage: undefined, country: undefined, caliber: undefined, actionType: undefined,
         ammunition: undefined, capacity: undefined, velocity: undefined, rateOfFire: undefined, range: undefined, startService: undefined,
@@ -291,8 +292,8 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
     $scope.addFirearm = function () {
 
         var index = $scope.firearmsList.map(function (x) {
-            return x._id;
-        }).indexOf($scope.firearm._id);
+            return x._id; // Will return array of id's of all records
+        }).indexOf($scope.firearm._id); // Get the index of the firearm id
 
         console.log("index = " + index);
 
@@ -307,6 +308,7 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
                     dataFlag.description) {
                 if (isYearValid($scope.firearm.startService)) {
                     console.log($scope.firearm);
+                    $scope.create= 'New';
                     $http.post('/firearmsList', $scope.firearm).then(function (response) {
                         console.log(response.data);
                         refresh();
@@ -314,11 +316,12 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
                 } else {
                     alert("19 Century Format: 18XX");
                 }
-            } else {
+            } else { 
                 if ($scope.hideInput === false) {
                     showEmptyFieldAlert(dataFlag);
-                } else {
+                } else { // Show the hidden input record
                     $scope.hideInput = false;
+                    $scope.create= 'Add';
                 }
             }
         }
@@ -326,9 +329,14 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
 
     $scope.remove = function (id) {
         console.log(id);
-        $http.delete('/firearmsList/' + id).then(function (repsonse) {
-            refresh();
-        });
+        
+        var response = confirm("Are you sure you want to delete this record?");
+        
+        if(response == true){
+            $http.delete('/firearmsList/' + id).then(function (repsonse) {
+                refresh();
+            });
+        }
     };
 
     $scope.edit = function (id) {
@@ -370,6 +378,8 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
 
     $scope.deselect = function () {
         $scope.hideInput = true;
+        $scope.create= 'New';
+        
         if ($scope.firearm !== null) {
             $scope.firearm._id = undefined;
             $scope.firearm.modelName = undefined;
