@@ -179,15 +179,15 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
         };
 
         pdf.autoTable(res.columns, res.data, {
-            bodyStyles: {rowHeight: 30},
-            beforePageContent: header,
+            bodyStyles: {vertical: 30},
+            createdHeaderCell: header,
             startY: 65,
             drawHeaderRow: function (row, data) {
                 row.height = 45;
             },
             drawHeaderCell: function (cell, data) {
                 pdf.rect(cell.x, cell.y, cell.width, cell.height, cell.styles.fillStyle);
-                pdf.setFontSize(15);
+                pdf.setFontSize(12);
                 pdf.setTextColor(0, 51, 204);
                 pdf.setFillColor(255, 204, 153);
                 pdf.setFontStyle('normal');
@@ -210,7 +210,7 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
                     });
                 }
             },
-            afterPageContent: function () {
+            addPageContent: function () {
                 for (var i = 0; i < images.length; i++) {
                     pdf.addImage(images[i].elem, 'jpg', images[i].x, images[i].y);
                 }
@@ -232,7 +232,8 @@ app.controller('firearmFactsController', function ($scope, $http, $uibModal) {
                 }
             }
         });
-
+        
+        console.log("images.length = " + images.length);
         pdf.save('FireArms19thCentury.pdf');
     };
 
